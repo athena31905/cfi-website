@@ -1,0 +1,1834 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CFI research team, research areas, current members, and alumni.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Team | CFI</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --page: #ffffff;
+      --ink: #111111;
+      --ink-soft: #3f4652;
+      --muted: #667085;
+      --navy: #071a30;
+      --blue: #315ea8;
+      --blue-dark: #23477f;
+      --blue-soft: #edf3ff;
+      --line: #e4e7ec;
+      --line-strong: #d7dce4;
+      --success: #18794e;
+      --danger: #b42318;
+      --content: min(1780px, calc(100% - 112px));
+      --card-shadow: 0 16px 44px rgba(23, 32, 51, .085);
+      --card-shadow-hover: 0 24px 58px rgba(23, 32, 51, .145);
+      --reveal-duration: 720ms;
+      --reveal-ease: cubic-bezier(.22, .61, .36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 24px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 280px;
+      overflow-x: hidden;
+      color: var(--ink);
+      background: var(--page);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    button, input, select, textarea { font: inherit; }
+    button { color: inherit; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 10020;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      color: #fff;
+      background: var(--navy);
+      transform: translateY(-160%);
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 28px, 0);
+      transition:
+        opacity var(--reveal-duration) ease var(--reveal-delay, 0ms),
+        transform var(--reveal-duration) var(--reveal-ease) var(--reveal-delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .page-width {
+      width: var(--content);
+      margin-inline: auto;
+    }
+
+    .team-hero {
+      position: relative;
+      min-height: 680px;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      min-height: 680px;
+      grid-template-columns: minmax(0, 1.08fr) minmax(470px, .92fr);
+      align-items: center;
+      gap: clamp(44px, 4.8vw, 92px);
+      padding: 60px 0 34px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      align-self: center;
+      padding-top: 52px;
+    }
+
+    .hero-title {
+      max-width: 820px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(56px, 4.65vw, 80px);
+      font-weight: 700;
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .hero-description {
+      max-width: 880px;
+      margin: 48px 0 0;
+      font-size: clamp(20px, 1.48vw, 27px);
+      line-height: 1.48;
+      letter-spacing: -.018em;
+    }
+
+    .hero-line,
+    .hero-description-line { white-space: nowrap; }
+
+    .hero-art {
+      position: relative;
+      align-self: start;
+      min-height: 590px;
+      pointer-events: none;
+    }
+
+    .hero-art picture,
+    .hero-art img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-art img {
+      min-height: 590px;
+      object-fit: contain;
+      object-position: center top;
+      user-select: none;
+    }
+
+    .research-areas {
+      padding: 26px 0 120px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(28px, 2.25vw, 39px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+
+    .area-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(34px, 7vw, 168px);
+      margin-top: 62px;
+    }
+
+    .area-card {
+      display: block;
+      min-width: 0;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .area-media {
+      position: relative;
+      display: block;
+      aspect-ratio: 1 / 1.08;
+      overflow: hidden;
+      border: 2px dashed #e1e1e1;
+      background: #fff;
+      transition: border-color 220ms ease, transform 300ms var(--reveal-ease), box-shadow 300ms ease;
+    }
+
+    .area-card:hover .area-media,
+    .area-card:focus-visible .area-media {
+      border-color: #cbd5e4;
+      transform: translateY(-4px);
+      box-shadow: 0 18px 42px rgba(7, 26, 48, .08);
+    }
+
+    .area-card:focus-visible { outline: none; }
+
+    .area-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .area-media.has-image { border-style: solid; }
+
+    .area-placeholder {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      color: #a8adb6;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .area-media.has-image .area-placeholder { display: none; }
+
+    .area-name {
+      display: block;
+      margin-top: 17px;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(17px, 1.25vw, 23px);
+      font-weight: 700;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .team-content {
+      padding: 30px 0 150px;
+    }
+
+    .content-toolbar {
+      display: flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .data-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .data-state-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a8b2c2;
+    }
+
+    .data-state[data-state="loading"] .data-state-dot {
+      background: var(--blue);
+      animation: pulse 1s infinite;
+    }
+
+    .data-state[data-state="ready"] .data-state-dot { background: var(--success); }
+    .data-state[data-state="error"] .data-state-dot { background: var(--danger); }
+
+    @keyframes pulse { 50% { opacity: .35; transform: scale(.82); } }
+
+    .edit-members {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid #ccd5e2;
+      border-radius: 10px;
+      color: var(--navy);
+      background: #fff;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 800;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .edit-members:hover {
+      border-color: #9fb0c9;
+      box-shadow: 0 8px 20px rgba(7, 26, 48, .08);
+      transform: translateY(-1px);
+    }
+
+    .edit-members:focus-visible,
+    .email-copy:focus-visible,
+    .more-info:focus-visible,
+    .profile-link:focus-visible,
+    .modal-close:focus-visible,
+    .alumni-link:focus-visible,
+    .refresh-members:focus-visible {
+      outline: 3px solid rgba(49, 94, 168, .24);
+      outline-offset: 2px;
+    }
+
+    .refresh-members {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .member-group {
+      padding-top: 102px;
+    }
+
+    .member-group:first-of-type { padding-top: 54px; }
+
+    .group-heading {
+      margin: 0 0 58px;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(28px, 2.15vw, 38px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.03em;
+    }
+
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(22px, 2.4vw, 38px);
+      align-items: stretch;
+    }
+
+    .member-card {
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 100%;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: var(--card-shadow);
+      transition: transform 220ms var(--reveal-ease), box-shadow 220ms ease, opacity 180ms ease;
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow-hover);
+    }
+
+    .member-card:focus-within {
+      outline: 3px solid rgba(49, 94, 168, .18);
+      outline-offset: 3px;
+    }
+
+    .member-card.is-source-card {
+      transform: scale(.985);
+      opacity: .40;
+    }
+
+    .card-photo-frame {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: #eef1f5;
+    }
+
+    .card-photo-frame::after {
+      position: absolute;
+      inset: auto 0 0;
+      height: 24%;
+      background: linear-gradient(to top, rgba(15, 23, 42, .10), transparent);
+      content: "";
+      pointer-events: none;
+    }
+
+    .card-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 440ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    .member-card:hover .card-photo { transform: scale(1.027); }
+
+    .card-body {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      gap: 17px;
+      padding: clamp(19px, 1.7vw, 25px);
+    }
+
+    .member-name {
+      margin: 0;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(20px, 1.55vw, 27px);
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -.03em;
+      overflow-wrap: anywhere;
+    }
+
+    .member-position {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card-label,
+    .section-label {
+      margin: 0;
+      color: var(--blue-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    .topic-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .topic-chip {
+      max-width: 100%;
+      padding: 6px 10px;
+      border: 1px solid #d7e2f6;
+      border-radius: 999px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .card-actions {
+      display: grid;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 2px;
+    }
+
+    .email-copy,
+    .more-info,
+    .profile-link,
+    .modal-close,
+    .alumni-link {
+      border: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .email-copy {
+      display: flex;
+      width: 100%;
+      min-width: 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #f9fafc;
+      text-align: left;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .email-copy:hover {
+      border-color: #b9c9e5;
+      background: #f4f7fd;
+    }
+
+    .email-copy:active { transform: scale(.99); }
+
+    .email-address {
+      min-width: 0;
+      color: #39445a;
+      font-size: 13px;
+      font-weight: 650;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .copy-icon {
+      flex: 0 0 auto;
+      color: var(--blue);
+      transition: transform 160ms ease;
+    }
+
+    .email-copy:hover .copy-icon { transform: translateY(-1px); }
+
+    .email-copy.is-copied {
+      border-color: rgba(24, 121, 78, .32);
+      background: #eefaf4;
+    }
+
+    .email-copy.is-copied .copy-icon { color: var(--success); }
+
+    .more-info {
+      display: inline-flex;
+      width: 100%;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 800;
+      text-align: center;
+      transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .more-info:hover {
+      background: var(--blue-dark);
+      box-shadow: 0 10px 22px rgba(35, 71, 127, .23);
+      transform: translateY(-1px);
+    }
+
+    .more-info:active { transform: translateY(0); }
+    .arrow-icon { transition: transform 160ms ease; }
+    .more-info:hover .arrow-icon { transform: translateX(2px); }
+
+    .alumni-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(20px, 2.25vw, 34px);
+    }
+
+    .alumni-card {
+      display: flex;
+      min-height: 210px;
+      flex-direction: column;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(23, 32, 51, .065);
+      transition: transform 200ms var(--reveal-ease), box-shadow 200ms ease;
+    }
+
+    .alumni-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(23, 32, 51, .105);
+    }
+
+    .alumni-name {
+      margin: 0;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -.025em;
+    }
+
+    .alumni-meta {
+      display: grid;
+      gap: 7px;
+      margin: 18px 0 0;
+      color: var(--ink-soft);
+      font-size: 13px;
+    }
+
+    .alumni-meta strong {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .alumni-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .alumni-link {
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 8px 10px;
+      border: 1px solid #d1d8e5;
+      border-radius: 9px;
+      color: #26344d;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .alumni-link:hover {
+      border-color: #9eb2d3;
+      box-shadow: 0 7px 16px rgba(23, 32, 51, .08);
+      transform: translateY(-1px);
+    }
+
+    .empty-state,
+    .error-state {
+      grid-column: 1 / -1;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      border: 1px dashed #cfd5de;
+      border-radius: 16px;
+      color: var(--muted);
+      background: #fff;
+      text-align: center;
+    }
+
+    .error-state { color: #7a3c37; background: #fff8f7; }
+    .empty-state strong, .error-state strong { display: block; margin-bottom: 7px; color: var(--ink); }
+    .empty-state p, .error-state p { max-width: 620px; margin: 0; }
+
+    .skeleton-card {
+      min-height: 520px;
+      border: 2px dashed #e1e1e1;
+      background: #fff;
+      animation: skeletonPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes skeletonPulse { 50% { border-color: #d5d9df; background: #fcfcfc; } }
+
+    .modal {
+      position: fixed;
+      z-index: 9999;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: clamp(10px, 2.4vw, 28px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .modal.is-open {
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      border: 0;
+      background: rgba(10, 18, 32, .70);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    .modal.is-open .modal-backdrop { opacity: 1; }
+
+    .modal-panel {
+      position: relative;
+      z-index: 1;
+      width: min(980px, 100%);
+      max-height: calc(100vh - clamp(20px, 4.8vw, 56px));
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 1px solid rgba(255, 255, 255, .60);
+      border-radius: 26px;
+      background: #fff;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, .32);
+      scrollbar-gutter: stable;
+      opacity: 0;
+      transform-origin: center;
+    }
+
+    .modal.is-open .modal-panel { opacity: 1; }
+
+    .modal-close {
+      position: sticky;
+      z-index: 3;
+      top: 14px;
+      float: right;
+      display: grid;
+      width: 42px;
+      height: 42px;
+      margin: 14px 14px -56px 0;
+      place-items: center;
+      border: 1px solid rgba(221, 228, 239, .92);
+      border-radius: 999px;
+      color: #253047;
+      background: rgba(255, 255, 255, .94);
+      box-shadow: 0 6px 16px rgba(23, 32, 51, .12);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .modal-close:hover { background: #f4f6fa; transform: rotate(4deg); }
+    .modal-content { clear: both; }
+
+    .profile-hero {
+      display: grid;
+      grid-template-columns: minmax(240px, .82fr) minmax(0, 1.58fr);
+      gap: clamp(24px, 4vw, 46px);
+      align-items: center;
+      padding: clamp(26px, 4vw, 46px);
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 95% 8%, rgba(49, 94, 168, .12), transparent 34%),
+        linear-gradient(145deg, #fff 0%, #f7f9fd 100%);
+    }
+
+    .profile-photo-wrap {
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      background: #e9edf3;
+      box-shadow: 0 16px 36px rgba(23, 32, 51, .12);
+    }
+
+    .profile-photo { width: 100%; height: 100%; object-fit: cover; }
+    .profile-meta { min-width: 0; }
+
+    .profile-name {
+      margin: 0;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(34px, 4.6vw, 54px);
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -.045em;
+      overflow-wrap: anywhere;
+    }
+
+    .profile-position {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .profile-topic-block { margin-top: 24px; }
+    .profile-email { margin-top: 18px; }
+    .profile-email .email-copy { width: fit-content; max-width: 100%; min-width: min(100%, 330px); background: #fff; }
+
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 17px;
+    }
+
+    .profile-link {
+      display: inline-flex;
+      min-height: 43px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid #cfd8e7;
+      border-radius: 11px;
+      color: #24324a;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .profile-link:hover {
+      border-color: #9eb2d3;
+      box-shadow: 0 8px 18px rgba(23, 32, 51, .10);
+      transform: translateY(-1px);
+    }
+
+    .profile-link .brand-mark {
+      display: grid;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: -.03em;
+    }
+
+    .profile-link.orcid .brand-mark { color: #426600; background: #eaf7d4; }
+    .profile-link.linkedin .brand-mark { color: #fff; background: #0a66c2; }
+
+    .profile-body {
+      display: grid;
+      gap: 18px;
+      padding: clamp(26px, 4vw, 46px);
+    }
+
+    .detail-section {
+      padding: clamp(19px, 3vw, 27px);
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: #fff;
+    }
+
+    .detail-section h3 {
+      margin: 5px 0 11px;
+      font-family: Montserrat, Arial, Helvetica, sans-serif;
+      font-size: clamp(20px, 2.3vw, 27px);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -.025em;
+    }
+
+    .detail-section p {
+      margin: 0;
+      color: #445066;
+      white-space: pre-line;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 12px;
+      margin: 14px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .project-item {
+      padding: 16px;
+      border: 1px solid #e0e6ef;
+      border-radius: 13px;
+      background: #f9fafc;
+    }
+
+    .project-topline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px 14px;
+    }
+
+    .project-title {
+      margin: 0;
+      color: #222d42;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .project-period {
+      flex: 0 0 auto;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .project-role {
+      display: inline-flex;
+      margin-top: 9px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--blue-dark);
+      background: var(--blue-soft);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .project-description { margin-top: 10px !important; font-size: 14px; }
+
+    .toast {
+      position: fixed;
+      z-index: 10010;
+      left: 50%;
+      bottom: 24px;
+      max-width: min(90vw, 470px);
+      padding: 11px 15px;
+      border-radius: 999px;
+      color: #fff;
+      background: #152039;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, .25);
+      font-size: 13px;
+      font-weight: 750;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 12px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (max-width: 1220px) {
+      :root { --content: min(100% - 64px, 1780px); }
+      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(390px, .9fr); min-height: 610px; }
+      .team-hero { min-height: 610px; }
+      .hero-art, .hero-art img { min-height: 500px; }
+      .area-grid { gap: clamp(26px, 4vw, 70px); }
+      .member-grid, .alumni-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      :root { --content: min(100% - 42px, 1780px); }
+      .team-hero { min-height: auto; }
+      .hero-grid { min-height: auto; grid-template-columns: 1fr; gap: 18px; padding: 76px 0 34px; }
+      .hero-copy { padding-top: 0; }
+      .hero-line, .hero-description-line { white-space: normal; }
+      .hero-description { margin-top: 30px; }
+      .hero-art { min-height: 340px; max-height: 500px; }
+      .hero-art img { min-height: 340px; max-height: 500px; object-position: center; }
+      .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 42px 50px; }
+      .member-grid, .alumni-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .profile-hero { grid-template-columns: 1fr; align-items: start; }
+      .profile-photo-wrap { width: min(100%, 520px); }
+    }
+
+    @media (max-width: 600px) {
+      :root { --content: min(100% - 28px, 1780px); }
+      .hero-grid { padding-top: 54px; }
+      .hero-title { font-size: clamp(48px, 15vw, 66px); }
+      .hero-description { font-size: 19px; }
+      .hero-art { min-height: 280px; }
+      .hero-art img { min-height: 280px; }
+      .research-areas { padding-bottom: 78px; }
+      .area-grid { grid-template-columns: 1fr 1fr; gap: 30px 18px; margin-top: 42px; }
+      .area-name { font-size: 15px; }
+      .content-toolbar { align-items: flex-end; flex-wrap: wrap; }
+      .data-state { order: 3; width: 100%; justify-content: center; }
+      .member-group { padding-top: 78px; }
+      .group-heading { margin-bottom: 32px; }
+      .member-grid, .alumni-grid { grid-template-columns: 1fr; }
+      .card-photo-frame { aspect-ratio: 4 / 3; }
+      .modal { padding: 8px; }
+      .modal-panel { max-height: calc(100vh - 16px); border-radius: 19px; }
+      .modal-close { top: 10px; margin: 10px 10px -52px 0; }
+      .profile-email .email-copy { width: 100%; }
+      .profile-links { display: grid; grid-template-columns: 1fr; }
+      .profile-link { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <main id="main">
+    <section class="team-hero" aria-labelledby="team-title">
+      <div class="page-width hero-grid">
+        <div class="hero-copy">
+          <h1 class="hero-title" id="team-title" data-reveal>People driving<br><span class="hero-line">our research forward</span></h1>
+          <p class="hero-description" data-reveal style="--reveal-delay:110ms"><span class="hero-description-line">Our interdisciplinary team works together to explore research</span><br>questions from diverse perspectives.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true" data-reveal style="--reveal-delay:90ms">
+          <picture>
+            <source srcset="assets/team-brain.webp" type="image/webp">
+            <img src="assets/team-brain.png" alt="" width="875" height="610" fetchpriority="high">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="research-areas page-width" aria-labelledby="research-areas-title">
+      <h2 class="section-title" id="research-areas-title" data-reveal>Research Areas</h2>
+      <div class="area-grid" id="area-grid"></div>
+    </section>
+
+    <section class="team-content page-width" aria-label="Research team members">
+      <div class="content-toolbar" data-reveal>
+        <span class="data-state" id="data-state" data-state="idle"><span class="data-state-dot"></span><span id="data-state-label">Not connected</span></span>
+        <button class="refresh-members" id="refresh-members" type="button" aria-label="Refresh member data" title="Refresh member data">↻</button>
+        <button class="edit-members" id="edit-members" type="button"><span aria-hidden="true">✎</span><span>Edit Members</span></button>
+      </div>
+      <div id="member-groups"></div>
+    </section>
+  </main>
+
+  <div class="modal" id="profile-modal" aria-hidden="true">
+    <button class="modal-backdrop" type="button" data-close-modal aria-label="Close profile"></button>
+    <section class="modal-panel" id="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close profile">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="modal-content" id="modal-content"></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!--
+    Research-area SVGs are intentionally not assigned yet. Later, put the files
+    in site/assets and fill imageUrl in RESEARCH_AREAS below.
+
+    Replace the two URLs after deploying the Apps Script project twice.
+  -->
+  <script id="cfi-team-config" type="application/json">
+  {
+    "publicApiUrl": "PASTE_PUBLIC_WEB_APP_URL_HERE",
+    "editorUrl": "PASTE_EDITOR_WEB_APP_URL_HERE?mode=editor",
+    "refreshIntervalMs": 60000,
+    "showEditorButton": true
+  }
+  </script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const CONFIG = readConfig();
+      const PREVIEW_MODE = new URLSearchParams(window.location.search).get("preview") === "1";
+      const REDUCE_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const RESEARCH_AREAS = [
+        { name: "Digital Forensics", href: "index.html#digital-forensics", imageUrl: "", alt: "Digital Forensics research area" },
+        { name: "5G/6G", href: "index.html#network-security", imageUrl: "", alt: "5G and 6G Security research area" },
+        { name: "Post-Quantum", href: "index.html#post-quantum-security", imageUrl: "", alt: "Post-Quantum Security research area" },
+        { name: "Space", href: "index.html#space-security", imageUrl: "", alt: "Space Security research area" }
+      ];
+
+      const GROUPS = [
+        { key: "faculty", label: "Faculty", skeletons: 1 },
+        { key: "phd", label: "Ph.D Student", skeletons: 4 },
+        { key: "ms", label: "M.S Student", skeletons: 4 },
+        { key: "bs", label: "B.S Student", skeletons: 4 },
+        { key: "alumni", label: "Alumini", skeletons: 0 }
+      ];
+
+      const PREVIEW_MEMBERS = [
+        {
+          member_id: "preview-faculty", member_group: "faculty", sort_order: 10, is_visible: true,
+          name: "Sample Faculty", position: "Professor", photo_url: "", research_keywords: ["Digital Forensics", "Security Analytics"],
+          email: "faculty@example.edu", orcid_url: "https://orcid.org/0000-0000-0000-0000", scholar_url: "https://scholar.google.com/",
+          research_overview: "This preview profile demonstrates how a detailed research overview is presented. Replace it with the member's approved introduction and current research interests.",
+          biography: "This is preview-only biography text. It is never used when the Google Sheet endpoint is connected.",
+          projects: [{ title: "Example Research Project", role: "Principal Investigator", period: "2025–2028", description: "A concise description of the member's contribution." }]
+        },
+        {
+          member_id: "preview-phd", member_group: "phd", sort_order: 10, is_visible: true,
+          name: "Sample Ph.D Student", position: "Ph.D Student", photo_url: "", research_keywords: ["5G/6G Security", "Network Traffic Analysis"],
+          email: "phd@example.edu", orcid_url: "", scholar_url: "https://scholar.google.com/",
+          research_overview: "Research interests include secure next-generation networks, traffic analysis, and resilient infrastructure.",
+          biography: "Preview data.", projects: []
+        },
+        {
+          member_id: "preview-ms", member_group: "ms", sort_order: 10, is_visible: true,
+          name: "Sample M.S Student", position: "M.S Student", photo_url: "", research_keywords: ["Post-Quantum Security", "FPGA"],
+          email: "ms@example.edu", orcid_url: "", scholar_url: "", research_overview: "Preview data.", biography: "", projects: []
+        },
+        {
+          member_id: "preview-bs", member_group: "bs", sort_order: 10, is_visible: true,
+          name: "Sample B.S Student", position: "B.S Student", photo_url: "", research_keywords: ["Space Security"],
+          email: "bs@example.edu", orcid_url: "", scholar_url: "", research_overview: "Preview data.", biography: "", projects: []
+        },
+        {
+          member_id: "preview-alumni-1", member_group: "alumni", sort_order: 10, is_visible: true,
+          name: "Sample Alumni", degree_period: "M.S. 2022–2024", current_affiliation: "Example Security Lab",
+          scholar_url: "https://scholar.google.com/", linkedin_url: "https://www.linkedin.com/"
+        }
+      ];
+
+      const icons = {
+        copy: `<svg class="copy-icon" width="19" height="19" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+        arrow: `<svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+      };
+
+      const state = {
+        members: [],
+        loading: false,
+        editorWindow: null,
+        activeMember: null,
+        sourceCard: null,
+        returnFocusTo: null,
+        toastTimer: null,
+        isClosing: false
+      };
+
+      const els = {
+        areaGrid: document.getElementById("area-grid"),
+        groups: document.getElementById("member-groups"),
+        dataState: document.getElementById("data-state"),
+        dataStateLabel: document.getElementById("data-state-label"),
+        refresh: document.getElementById("refresh-members"),
+        edit: document.getElementById("edit-members"),
+        modal: document.getElementById("profile-modal"),
+        modalPanel: document.getElementById("modal-panel"),
+        modalContent: document.getElementById("modal-content"),
+        toast: document.getElementById("toast")
+      };
+
+      init();
+
+      function init() {
+        renderResearchAreas();
+        bindEvents();
+        setupRevealObserver(document);
+        els.edit.hidden = CONFIG.showEditorButton === false;
+        renderSkeletons();
+        loadMembers();
+
+        if (Number(CONFIG.refreshIntervalMs) > 0) {
+          window.setInterval(() => {
+            if (!document.hidden && !state.loading && isConfigured(CONFIG.publicApiUrl) && !PREVIEW_MODE) {
+              loadMembers({ silent: true });
+            }
+          }, Math.max(15000, Number(CONFIG.refreshIntervalMs)));
+        }
+      }
+
+      function readConfig() {
+        try {
+          return JSON.parse(document.getElementById("cfi-team-config").textContent.trim());
+        } catch (error) {
+          console.error("Invalid Team configuration", error);
+          return { publicApiUrl: "", editorUrl: "", refreshIntervalMs: 0, showEditorButton: true };
+        }
+      }
+
+      function renderResearchAreas() {
+        els.areaGrid.replaceChildren();
+        RESEARCH_AREAS.forEach((area, index) => {
+          const link = document.createElement("a");
+          link.className = "area-card";
+          link.href = area.href;
+          link.dataset.reveal = "";
+          link.style.setProperty("--reveal-delay", `${index * 70}ms`);
+
+          const media = document.createElement("span");
+          media.className = "area-media";
+          const placeholder = document.createElement("span");
+          placeholder.className = "area-placeholder";
+          placeholder.textContent = "SVG image slot";
+          media.appendChild(placeholder);
+
+          const imageUrl = safeHttpOrRelativeUrl(area.imageUrl);
+          if (imageUrl) {
+            const image = document.createElement("img");
+            image.src = imageUrl;
+            image.alt = area.alt || area.name;
+            image.loading = "lazy";
+            image.addEventListener("load", () => media.classList.add("has-image"));
+            image.addEventListener("error", () => image.remove(), { once: true });
+            media.appendChild(image);
+          }
+
+          const label = document.createElement("span");
+          label.className = "area-name";
+          label.textContent = area.name;
+          link.append(media, label);
+          els.areaGrid.appendChild(link);
+        });
+      }
+
+      function bindEvents() {
+        els.refresh.addEventListener("click", () => loadMembers());
+        els.edit.addEventListener("click", openEditor);
+
+        document.addEventListener("click", (event) => {
+          const copyButton = event.target.closest("[data-copy-email]");
+          if (copyButton) {
+            handleEmailCopy(copyButton);
+            return;
+          }
+
+          const openButton = event.target.closest("[data-open-member]");
+          if (openButton) {
+            openProfile(findMember(openButton.dataset.openMember), openButton);
+            return;
+          }
+
+          if (event.target.closest("[data-close-modal]")) closeProfile();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && els.modal.classList.contains("is-open")) {
+            event.preventDefault();
+            closeProfile();
+            return;
+          }
+          trapFocus(event);
+        });
+
+        window.addEventListener("message", (event) => {
+          if (event.source !== state.editorWindow) return;
+          if (event.data && event.data.type === "cfi-members-updated") {
+            showToast("Member data was updated. Refreshing…");
+            loadMembers();
+          }
+        });
+      }
+
+      async function loadMembers(options = {}) {
+        const silent = Boolean(options.silent);
+
+        if (PREVIEW_MODE) {
+          state.members = PREVIEW_MEMBERS.map(normalizeMember);
+          renderMembers();
+          setDataState("ready", "Preview data");
+          return;
+        }
+
+        if (!isConfigured(CONFIG.publicApiUrl)) {
+          state.members = [];
+          renderUnconfigured();
+          setDataState("idle", "Configuration required");
+          return;
+        }
+
+        state.loading = true;
+        if (!silent) setDataState("loading", "Loading members");
+
+        try {
+          let payload;
+          try {
+            const url = withQuery(CONFIG.publicApiUrl, { mode: "members", _: Date.now() });
+            const response = await fetch(url, { method: "GET", redirect: "follow", cache: "no-store", credentials: "omit" });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            payload = await response.json();
+          } catch (fetchError) {
+            payload = await loadJsonp(CONFIG.publicApiUrl);
+          }
+
+          if (!payload || payload.ok !== true || !Array.isArray(payload.members)) {
+            throw new Error(payload && payload.error ? payload.error : "The member endpoint returned an invalid response.");
+          }
+
+          state.members = payload.members.map(normalizeMember).filter((member) => member.is_visible !== false);
+          renderMembers();
+          setDataState("ready", payload.updatedAt ? `Synced ${formatDateTime(payload.updatedAt)}` : "Synced");
+        } catch (error) {
+          console.error(error);
+          renderError(error.message || "Unable to load members.");
+          setDataState("error", "Sync failed");
+          if (!silent) showToast("Member data could not be loaded.");
+        } finally {
+          state.loading = false;
+        }
+      }
+
+      function loadJsonp(baseUrl) {
+        return new Promise((resolve, reject) => {
+          const callbackName = `__cfiMembers_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+          const script = document.createElement("script");
+          const timeout = window.setTimeout(() => cleanup(new Error("JSONP request timed out.")), 15000);
+
+          function cleanup(error, value) {
+            window.clearTimeout(timeout);
+            delete window[callbackName];
+            script.remove();
+            error ? reject(error) : resolve(value);
+          }
+
+          window[callbackName] = (payload) => cleanup(null, payload);
+          script.onerror = () => cleanup(new Error("JSONP request failed."));
+          script.src = withQuery(baseUrl, { mode: "members", callback: callbackName, _: Date.now() });
+          document.head.appendChild(script);
+        });
+      }
+
+      function renderSkeletons() {
+        els.groups.replaceChildren();
+        GROUPS.filter((group) => group.key !== "alumni").forEach((group) => {
+          const section = createGroupSection(group);
+          const grid = section.querySelector(".member-grid");
+          for (let i = 0; i < group.skeletons; i += 1) {
+            const skeleton = document.createElement("div");
+            skeleton.className = "skeleton-card";
+            skeleton.setAttribute("aria-hidden", "true");
+            grid.appendChild(skeleton);
+          }
+          els.groups.appendChild(section);
+        });
+      }
+
+      function renderUnconfigured() {
+        els.groups.replaceChildren();
+        GROUPS.forEach((group) => {
+          const section = createGroupSection(group);
+          const grid = section.querySelector(group.key === "alumni" ? ".alumni-grid" : ".member-grid");
+          grid.appendChild(createStateCard(
+            group.key === "faculty" ? "Connect the Google Sheet endpoint" : "No data connection yet",
+            group.key === "faculty"
+              ? "Paste the public Apps Script deployment URL into the cfi-team-config block near the bottom of team.html. Use ?preview=1 to inspect the completed design without a Sheet connection."
+              : "Members in this group will appear after the endpoint is configured."
+          ));
+          els.groups.appendChild(section);
+        });
+        setupRevealObserver(els.groups);
+      }
+
+      function renderError(message) {
+        els.groups.replaceChildren();
+        GROUPS.forEach((group) => {
+          const section = createGroupSection(group);
+          const grid = section.querySelector(group.key === "alumni" ? ".alumni-grid" : ".member-grid");
+          grid.appendChild(createStateCard("Unable to load members", message, true));
+          els.groups.appendChild(section);
+        });
+        setupRevealObserver(els.groups);
+      }
+
+      function renderMembers() {
+        els.groups.replaceChildren();
+        GROUPS.forEach((group) => {
+          const section = createGroupSection(group);
+          const members = state.members
+            .filter((member) => member.member_group === group.key)
+            .sort(sortMembers);
+          const grid = section.querySelector(group.key === "alumni" ? ".alumni-grid" : ".member-grid");
+
+          if (!members.length) {
+            grid.appendChild(createStateCard("No members listed", `No visible ${group.label} records are currently available.`));
+          } else if (group.key === "alumni") {
+            members.forEach((member, index) => grid.appendChild(createAlumniCard(member, index)));
+          } else {
+            members.forEach((member, index) => grid.appendChild(createMemberCard(member, index)));
+          }
+
+          els.groups.appendChild(section);
+        });
+        installImageFallbacks(els.groups);
+        setupRevealObserver(els.groups);
+      }
+
+      function createGroupSection(group) {
+        const section = document.createElement("section");
+        section.className = "member-group";
+        section.id = `group-${group.key}`;
+        section.setAttribute("aria-labelledby", `group-title-${group.key}`);
+        const heading = document.createElement("h2");
+        heading.className = "group-heading";
+        heading.id = `group-title-${group.key}`;
+        heading.dataset.reveal = "";
+        heading.textContent = group.label;
+        const grid = document.createElement("div");
+        grid.className = group.key === "alumni" ? "alumni-grid" : "member-grid";
+        section.append(heading, grid);
+        return section;
+      }
+
+      function createMemberCard(member, index) {
+        const article = document.createElement("article");
+        article.className = "member-card";
+        article.dataset.memberCard = member.member_id;
+        article.dataset.reveal = "";
+        article.style.setProperty("--reveal-delay", `${Math.min(index, 7) * 55}ms`);
+        article.innerHTML = renderCard(member);
+        return article;
+      }
+
+      function renderCard(member) {
+        const photo = memberPhoto(member);
+        const alt = escapeHtml(member.photo_alt || `Portrait of ${member.name}`);
+        const position = member.position ? `<p class="member-position">${escapeHtml(member.position)}</p>` : "";
+        const email = member.email ? emailButton(member.email) : "";
+        return `
+          <div class="card-photo-frame">
+            <img class="card-photo" src="${escapeAttribute(photo)}" alt="${alt}" loading="lazy" data-fallback-name="${escapeAttribute(member.name)}">
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="member-name">${escapeHtml(member.name)}</h3>
+              ${position}
+            </div>
+            <div>
+              <p class="card-label">Research Topic · Keyword</p>
+              <ul class="topic-list" aria-label="Research topics">${renderTopicChips(member.research_keywords)}</ul>
+            </div>
+            <div class="card-actions">
+              ${email}
+              <button class="more-info" type="button" data-open-member="${escapeAttribute(member.member_id)}" aria-label="More information about ${escapeAttribute(member.name)}">
+                <span>More Info</span>${icons.arrow}
+              </button>
+            </div>
+          </div>`;
+      }
+
+      function createAlumniCard(member, index) {
+        const article = document.createElement("article");
+        article.className = "alumni-card";
+        article.dataset.reveal = "";
+        article.style.setProperty("--reveal-delay", `${Math.min(index, 7) * 55}ms`);
+        const scholar = renderAlumniLink(member.scholar_url, "Google Scholar", "G");
+        const linkedin = renderAlumniLink(member.linkedin_url, "LinkedIn", "in");
+        article.innerHTML = `
+          <h3 class="alumni-name">${escapeHtml(member.name)}</h3>
+          <div class="alumni-meta">
+            ${member.degree_period ? `<span><strong>Degree / Period</strong><br>${escapeHtml(member.degree_period)}</span>` : ""}
+            ${member.current_affiliation ? `<span><strong>Current affiliation</strong><br>${escapeHtml(member.current_affiliation)}</span>` : ""}
+          </div>
+          ${(scholar || linkedin) ? `<div class="alumni-links">${scholar}${linkedin}</div>` : ""}`;
+        return article;
+      }
+
+      function renderAlumniLink(url, label, mark) {
+        const href = safeHttpUrl(url);
+        if (!href) return "";
+        return `<a class="alumni-link" href="${escapeAttribute(href)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">${escapeHtml(mark)}</span><span>${escapeHtml(label)}</span></a>`;
+      }
+
+      function createStateCard(title, message, isError = false) {
+        const box = document.createElement("div");
+        box.className = isError ? "error-state" : "empty-state";
+        box.innerHTML = `<div><strong>${escapeHtml(title)}</strong><p>${escapeHtml(message)}</p></div>`;
+        return box;
+      }
+
+      function normalizeMember(member) {
+        const keywords = Array.isArray(member.research_keywords)
+          ? member.research_keywords
+          : String(member.research_keywords || "").split(/[,;\n]/);
+        const projects = Array.isArray(member.projects) ? member.projects : [];
+        const group = GROUPS.some((item) => item.key === String(member.member_group || "").toLowerCase())
+          ? String(member.member_group).toLowerCase()
+          : "phd";
+        return {
+          ...member,
+          member_id: String(member.member_id || ""),
+          member_group: group,
+          sort_order: Number.isFinite(Number(member.sort_order)) ? Number(member.sort_order) : 9999,
+          is_visible: member.is_visible !== false && String(member.is_visible).toLowerCase() !== "false",
+          name: String(member.name || "").trim(),
+          position: String(member.position || "").trim(),
+          photo_url: String(member.photo_url || "").trim(),
+          photo_alt: String(member.photo_alt || "").trim(),
+          research_keywords: [...new Set(keywords.map((value) => String(value).trim()).filter(Boolean))],
+          email: String(member.email || "").trim(),
+          orcid_url: String(member.orcid_url || "").trim(),
+          scholar_url: String(member.scholar_url || "").trim(),
+          linkedin_url: String(member.linkedin_url || "").trim(),
+          research_overview: String(member.research_overview || "").trim(),
+          biography: String(member.biography || "").trim(),
+          degree_period: String(member.degree_period || "").trim(),
+          current_affiliation: String(member.current_affiliation || "").trim(),
+          projects: projects.map((project) => ({
+            title: String(project.title || "").trim(),
+            role: String(project.role || "").trim(),
+            period: String(project.period || "").trim(),
+            description: String(project.description || "").trim()
+          })).filter((project) => project.title || project.role || project.period || project.description)
+        };
+      }
+
+      function sortMembers(a, b) {
+        return a.sort_order - b.sort_order || a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+      }
+
+      function renderTopicChips(topics = []) {
+        if (!topics.length) return `<li class="topic-chip">Research topic to be added</li>`;
+        return topics.map((topic) => `<li class="topic-chip">${escapeHtml(topic)}</li>`).join("");
+      }
+
+      function emailButton(email, extraClass = "") {
+        const value = escapeHtml(email);
+        return `<button class="email-copy ${extraClass}" type="button" data-copy-email="${escapeAttribute(email)}" aria-label="Copy email address ${escapeAttribute(email)}" title="Copy email"><span class="email-address">${value}</span>${icons.copy}</button>`;
+      }
+
+      function memberPhoto(member) {
+        return normalizeDriveImageUrl(member.photo_url) || avatarDataUrl(member.name);
+      }
+
+      function normalizeDriveImageUrl(value) {
+        const url = safeHttpUrl(value);
+        if (!url) return "";
+        try {
+          const parsed = new URL(url);
+          if (parsed.hostname === "drive.google.com") {
+            const fileMatch = parsed.pathname.match(/\/file\/d\/([^/]+)/);
+            const id = fileMatch ? fileMatch[1] : parsed.searchParams.get("id");
+            if (id) return `https://drive.google.com/uc?export=view&id=${encodeURIComponent(id)}`;
+          }
+          return parsed.href;
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function initialsFromName(name = "") {
+        const cleaned = name.replace(/\b(Dr|Prof|Professor|Mr|Ms|Mrs)\.?\s+/gi, "").trim();
+        const parts = cleaned.split(/\s+/).filter(Boolean);
+        return ((parts[0]?.[0] || "C") + (parts[parts.length - 1]?.[0] || "")).toUpperCase();
+      }
+
+      function avatarDataUrl(name = "Researcher") {
+        const initials = escapeHtml(initialsFromName(name));
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2f5fa"/><stop offset="1" stop-color="#dce5f1"/></linearGradient></defs><rect width="800" height="600" fill="url(#g)"/><circle cx="654" cy="104" r="142" fill="#fff" opacity=".45"/><circle cx="116" cy="532" r="176" fill="#315ea8" opacity=".08"/><circle cx="400" cy="254" r="132" fill="#c8d5e9"/><path d="M184 600c18-150 104-225 216-225s198 75 216 225" fill="#b1c2dc"/><circle cx="400" cy="300" r="108" fill="#fff" opacity=".84"/><text x="400" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="92" font-weight="700" fill="#315ea8">${initials}</text></svg>`;
+        return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+      }
+
+      function installImageFallbacks(root) {
+        root.querySelectorAll("img[data-fallback-name]").forEach((image) => {
+          image.addEventListener("error", () => {
+            image.src = avatarDataUrl(image.dataset.fallbackName || "Researcher");
+          }, { once: true });
+        });
+      }
+
+      function findMember(id) {
+        return state.members.find((member) => String(member.member_id) === String(id));
+      }
+
+      function renderProfileLink(url, type) {
+        const href = safeHttpUrl(url);
+        if (!href) return "";
+        if (type === "orcid") {
+          return `<a class="profile-link orcid" href="${escapeAttribute(href)}" target="_blank" rel="noopener noreferrer" aria-label="Open ORCID profile in a new tab"><span class="brand-mark" aria-hidden="true">iD</span><span>ORCID</span></a>`;
+        }
+        if (type === "linkedin") {
+          return `<a class="profile-link linkedin" href="${escapeAttribute(href)}" target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile in a new tab"><span class="brand-mark" aria-hidden="true">in</span><span>LinkedIn</span></a>`;
+        }
+        return `<a class="profile-link scholar" href="${escapeAttribute(href)}" target="_blank" rel="noopener noreferrer" aria-label="Open Google Scholar profile in a new tab"><span class="brand-mark" aria-hidden="true">G</span><span>Google Scholar</span></a>`;
+      }
+
+      function renderProjects(projects = []) {
+        if (!projects.length) return "";
+        const items = projects.map((project) => `
+          <li class="project-item">
+            <div class="project-topline">
+              <h4 class="project-title">${escapeHtml(project.title || "Project")}</h4>
+              ${project.period ? `<span class="project-period">${escapeHtml(project.period)}</span>` : ""}
+            </div>
+            ${project.role ? `<span class="project-role">Role: ${escapeHtml(project.role)}</span>` : ""}
+            ${project.description ? `<p class="project-description">${escapeHtml(project.description)}</p>` : ""}
+          </li>`).join("");
+        return `<section class="detail-section"><p class="section-label">Participating Projects</p><h3>Projects and Roles</h3><ul class="project-list">${items}</ul></section>`;
+      }
+
+      function renderModal(member) {
+        const photo = memberPhoto(member);
+        const alt = escapeHtml(member.photo_alt || `Portrait of ${member.name}`);
+        const position = member.position ? `<p class="profile-position">${escapeHtml(member.position)}</p>` : "";
+        const links = [
+          renderProfileLink(member.orcid_url, "orcid"),
+          renderProfileLink(member.scholar_url, "scholar")
+        ].filter(Boolean).join("");
+        const overview = member.research_overview
+          ? `<section class="detail-section"><p class="section-label">Research Overview</p><h3>About the Research</h3><p>${escapeHtml(member.research_overview)}</p></section>`
+          : "";
+        const biography = member.biography
+          ? `<section class="detail-section"><p class="section-label">Biography</p><h3>Background</h3><p>${escapeHtml(member.biography)}</p></section>`
+          : "";
+        const email = member.email ? `<div class="profile-email"><p class="card-label" style="margin-bottom:8px">Email</p>${emailButton(member.email)}</div>` : "";
+        return `
+          <div class="profile-hero">
+            <div class="profile-photo-wrap"><img class="profile-photo" src="${escapeAttribute(photo)}" alt="${alt}" data-fallback-name="${escapeAttribute(member.name)}"></div>
+            <div class="profile-meta">
+              <h2 class="profile-name" id="modal-title">${escapeHtml(member.name)}</h2>
+              ${position}
+              <div class="profile-topic-block"><p class="card-label">Research Topic · Keyword</p><ul class="topic-list" aria-label="Research topics">${renderTopicChips(member.research_keywords)}</ul></div>
+              ${email}
+              ${links ? `<div class="profile-links">${links}</div>` : ""}
+            </div>
+          </div>
+          <div class="profile-body">${overview}${renderProjects(member.projects)}${biography}</div>`;
+      }
+
+      function openProfile(member, trigger) {
+        if (!member || els.modal.classList.contains("is-open")) return;
+        state.activeMember = member;
+        state.returnFocusTo = trigger || document.activeElement;
+        state.sourceCard = trigger?.closest("[data-member-card]") || null;
+        state.sourceCard?.classList.add("is-source-card");
+        els.modalContent.innerHTML = renderModal(member);
+        installImageFallbacks(els.modalContent);
+        els.modalPanel.scrollTop = 0;
+        els.modal.classList.add("is-open");
+        els.modal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("modal-open");
+        requestAnimationFrame(() => {
+          animateOpenFromCard(state.sourceCard);
+          els.modal.querySelector(".modal-close")?.focus({ preventScroll: true });
+        });
+      }
+
+      function animateOpenFromCard(card) {
+        if (REDUCE_MOTION || !els.modalPanel.animate) {
+          els.modalPanel.style.opacity = "1";
+          return;
+        }
+        const panelRect = els.modalPanel.getBoundingClientRect();
+        const cardRect = card?.getBoundingClientRect();
+        const backdrop = els.modal.querySelector(".modal-backdrop");
+        if (!cardRect) {
+          els.modalPanel.animate([
+            { transform: "translateY(18px) scale(.97)", opacity: 0 },
+            { transform: "translateY(0) scale(1)", opacity: 1 }
+          ], { duration: 340, easing: "cubic-bezier(.18,.78,.23,1)", fill: "both" });
+        } else {
+          const scale = Math.max(.34, Math.min(cardRect.width / panelRect.width, cardRect.height / panelRect.height, .88));
+          const dx = cardRect.left + cardRect.width / 2 - (panelRect.left + panelRect.width / 2);
+          const dy = cardRect.top + cardRect.height / 2 - (panelRect.top + panelRect.height / 2);
+          els.modalPanel.animate([
+            { transform: `translate(${dx}px, ${dy}px) scale(${scale})`, opacity: .45, borderRadius: "20px" },
+            { transform: "translate(0, 0) scale(1)", opacity: 1, borderRadius: getComputedStyle(els.modalPanel).borderRadius }
+          ], { duration: 430, easing: "cubic-bezier(.16,.82,.22,1)", fill: "both" });
+        }
+        backdrop?.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, easing: "ease-out", fill: "both" });
+      }
+
+      async function closeProfile() {
+        if (!els.modal.classList.contains("is-open") || state.isClosing) return;
+        state.isClosing = true;
+        const backdrop = els.modal.querySelector(".modal-backdrop");
+        const animations = [];
+
+        if (!REDUCE_MOTION && els.modalPanel.animate) {
+          const panelRect = els.modalPanel.getBoundingClientRect();
+          const cardRect = state.sourceCard?.getBoundingClientRect();
+          if (cardRect) {
+            const scale = Math.max(.34, Math.min(cardRect.width / panelRect.width, cardRect.height / panelRect.height, .88));
+            const dx = cardRect.left + cardRect.width / 2 - (panelRect.left + panelRect.width / 2);
+            const dy = cardRect.top + cardRect.height / 2 - (panelRect.top + panelRect.height / 2);
+            animations.push(els.modalPanel.animate([
+              { transform: "translate(0, 0) scale(1)", opacity: 1 },
+              { transform: `translate(${dx}px, ${dy}px) scale(${scale})`, opacity: 0 }
+            ], { duration: 300, easing: "cubic-bezier(.4,0,.75,.2)", fill: "both" }).finished.catch(() => {}));
+          } else {
+            animations.push(els.modalPanel.animate([
+              { transform: "translateY(0) scale(1)", opacity: 1 },
+              { transform: "translateY(15px) scale(.98)", opacity: 0 }
+            ], { duration: 220, easing: "ease-in", fill: "both" }).finished.catch(() => {}));
+          }
+          if (backdrop?.animate) {
+            animations.push(backdrop.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 220, easing: "ease-in", fill: "both" }).finished.catch(() => {}));
+          }
+        }
+
+        if (animations.length) await Promise.all(animations);
+        els.modal.classList.remove("is-open");
+        els.modal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("modal-open");
+        state.sourceCard?.classList.remove("is-source-card");
+        els.modalContent.innerHTML = "";
+        els.modalPanel.getAnimations().forEach((animation) => animation.cancel());
+        backdrop?.getAnimations().forEach((animation) => animation.cancel());
+        const focusTarget = state.returnFocusTo;
+        state.activeMember = null;
+        state.sourceCard = null;
+        state.returnFocusTo = null;
+        state.isClosing = false;
+        focusTarget?.focus?.({ preventScroll: true });
+      }
+
+      function trapFocus(event) {
+        if (event.key !== "Tab" || !els.modal.classList.contains("is-open")) return;
+        const focusable = [...els.modalPanel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+          .filter((element) => !element.hidden && element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      async function handleEmailCopy(button) {
+        const email = button.dataset.copyEmail || "";
+        if (!email) return;
+        try {
+          await copyText(email);
+          button.classList.add("is-copied");
+          button.setAttribute("aria-label", `Email copied: ${email}`);
+          showToast("Email copied!");
+          window.setTimeout(() => {
+            button.classList.remove("is-copied");
+            button.setAttribute("aria-label", `Copy email address ${email}`);
+          }, 1600);
+        } catch (_) {
+          showToast(`Copy failed. Email: ${email}`);
+        }
+      }
+
+      async function copyText(text) {
+        if (navigator.clipboard?.writeText && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        const successful = document.execCommand("copy");
+        textarea.remove();
+        if (!successful) throw new Error("Copy command failed");
+      }
+
+      function openEditor() {
+        if (!isConfigured(CONFIG.editorUrl)) {
+          showToast("Set editorUrl in the cfi-team-config block first.");
+          return;
+        }
+        const url = new URL(CONFIG.editorUrl, window.location.href);
+        url.hash = "members";
+        const popup = window.open(url.href, "cfiContentEditor", "popup=yes,width=1380,height=940,resizable=yes,scrollbars=yes");
+        if (!popup) {
+          showToast("The editor window was blocked. Allow pop-ups for this site.");
+        } else {
+          state.editorWindow = popup;
+          popup.focus();
+        }
+      }
+
+      function setDataState(status, label) {
+        els.dataState.dataset.state = status;
+        els.dataStateLabel.textContent = label;
+      }
+
+      function showToast(message) {
+        window.clearTimeout(state.toastTimer);
+        els.toast.textContent = message;
+        els.toast.classList.add("is-visible");
+        state.toastTimer = window.setTimeout(() => els.toast.classList.remove("is-visible"), 2100);
+      }
+
+      function setupRevealObserver(root) {
+        const targets = [...root.querySelectorAll("[data-reveal]")].filter((target) => !target.dataset.revealObserved);
+        targets.forEach((target) => { target.dataset.revealObserved = "true"; });
+        if (REDUCE_MOTION || !("IntersectionObserver" in window)) {
+          targets.forEach((target) => target.classList.add("is-visible"));
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .08, rootMargin: "0px 0px -4%" });
+        targets.forEach((target) => observer.observe(target));
+      }
+
+      function formatDateTime(value) {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return String(value);
+        return new Intl.DateTimeFormat("en", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(date);
+      }
+
+      function withQuery(baseUrl, params) {
+        const url = new URL(baseUrl, window.location.href);
+        Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, String(value)));
+        return url.href;
+      }
+
+      function isConfigured(value) {
+        return Boolean(value && !/PASTE_|YOUR_|EXAMPLE/i.test(String(value)));
+      }
+
+      function safeHttpUrl(value) {
+        if (!value) return "";
+        try {
+          const url = new URL(String(value), window.location.href);
+          return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function safeHttpOrRelativeUrl(value) {
+        const text = String(value || "").trim();
+        if (!text) return "";
+        try {
+          const url = new URL(text, window.location.href);
+          return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function escapeAttribute(value) {
+        return escapeHtml(value).replaceAll("`", "&#096;");
+      }
+    })();
+  </script>
+</body>
+</html>
