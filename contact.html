@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0d10" />
+  <title>Cyber Forencis Intelligence Lab · KU-Sejong</title>
+  <style>
+    :root {
+      --ink: #111318;
+      --paper: #f5f3ee;
+      --white: #ffffff;
+      --muted: #767b84;
+      --line: rgba(17, 19, 24, 0.14);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    body.is-unlocked {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ---------- MAIN PAGE ---------- */
+    .site-shell {
+      position: relative;
+      min-height: 100vh;
+      background: #0b0d10;
+      color: #f5f3ee;
+      isolation: isolate;
+    }
+
+    .site-header {
+      position: fixed;
+      z-index: 4;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 82px;
+      padding: 0 clamp(22px, 4vw, 64px);
+      color: #f7f5ef;
+      mix-blend-mode: difference;
+      opacity: 0;
+      transform: translateY(-14px);
+      transition: opacity 0.8s var(--ease-out) 0.8s, transform 0.8s var(--ease-out) 0.8s;
+      pointer-events: none;
+    }
+
+    body:is(.is-opening, .is-unlocked) .site-header {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: inherit;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 11px;
+      aspect-ratio: 1;
+      border: 2px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .header-link,
+    .replay-button {
+      border: 0;
+      padding: 7px 0;
+      background: none;
+      color: inherit;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .header-link::after,
+    .replay-button::after {
+      display: block;
+      width: 100%;
+      height: 1px;
+      margin-top: 5px;
+      background: currentColor;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    .header-link:hover::after,
+    .header-link:focus-visible::after,
+    .replay-button:hover::after,
+    .replay-button:focus-visible::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      display: grid;
+      align-items: end;
+      padding: clamp(108px, 14vh, 170px) clamp(22px, 4vw, 64px) clamp(42px, 7vh, 76px);
+    }
+
+    .hero-art {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      overflow: hidden;
+      background: #17212c;
+    }
+
+    .hero-art svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.06);
+      transition: transform 2.2s var(--ease-out) 0.2s;
+    }
+
+    body:is(.is-opening, .is-unlocked) .hero-art svg {
+      transform: scale(1);
+    }
+
+    .hero-art::after {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(6, 8, 12, 0.06) 0%, rgba(6, 8, 12, 0.03) 35%, rgba(6, 8, 12, 0.78) 100%),
+        linear-gradient(90deg, rgba(6, 8, 12, 0.38) 0%, rgba(6, 8, 12, 0.02) 55%, rgba(6, 8, 12, 0.15) 100%);
+      content: "";
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.28fr) minmax(300px, 0.72fr);
+      gap: clamp(34px, 5.5vw, 88px);
+      align-items: end;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 22px;
+      font-size: 11px;
+      font-weight: 720;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s var(--ease-out) 0.65s, transform 0.8s var(--ease-out) 0.65s;
+    }
+
+    .eyebrow::before {
+      width: 34px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    .hero-title {
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(48px, 7.3vw, 112px);
+      font-weight: 510;
+      line-height: 0.89;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+      opacity: 0;
+      transform: translateY(42px);
+      transition: opacity 1s var(--ease-out) 0.7s, transform 1s var(--ease-out) 0.7s;
+    }
+
+    .hero-title em {
+      display: block;
+      margin-left: clamp(20px, 9vw, 144px);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-aside {
+      max-width: 465px;
+      justify-self: end;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.9s var(--ease-out) 0.92s, transform 0.9s var(--ease-out) 0.92s;
+    }
+
+    body:is(.is-opening, .is-unlocked) .eyebrow,
+    body:is(.is-opening, .is-unlocked) .hero-title,
+    body:is(.is-opening, .is-unlocked) .hero-aside {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-aside p {
+      margin: 0 0 30px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: clamp(17px, 1.45vw, 21px);
+      line-height: 1.66;
+      letter-spacing: -0.012em;
+    }
+
+    .round-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 720;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .round-link span {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 50%;
+      transition: transform 0.35s var(--ease-out), background 0.35s ease, color 0.35s ease;
+    }
+
+    .round-link:hover span,
+    .round-link:focus-visible span {
+      color: #111318;
+      background: #fff;
+      transform: translateX(4px);
+    }
+
+    .hero-index {
+      position: absolute;
+      right: clamp(22px, 4vw, 64px);
+      top: 46%;
+      display: grid;
+      gap: 7px;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      opacity: 0;
+      transition: opacity 0.8s ease 1.25s;
+    }
+
+    body:is(.is-opening, .is-unlocked) .hero-index {
+      opacity: 1;
+    }
+
+    .content-section {
+      background: #ffffff;
+      color: var(--ink);
+      padding: clamp(92px, 11vw, 164px) clamp(22px, 6vw, 96px) clamp(92px, 10vw, 150px);
+    }
+
+    .research-content {
+      width: min(1400px, 100%);
+      margin: 0 auto;
+    }
+
+    .support-intro {
+      display: grid;
+      grid-template-columns: minmax(175px, 0.32fr) minmax(0, 1fr);
+      gap: clamp(36px, 7vw, 116px);
+      align-items: start;
+      margin-bottom: clamp(58px, 7vw, 96px);
+    }
+
+    .section-label {
+      margin: 9px 0 0;
+      color: #6d727a;
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: 0.18em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      max-width: 1040px;
+      margin: 0;
+      font-size: clamp(46px, 6.5vw, 96px);
+      font-weight: 520;
+      line-height: 0.96;
+      letter-spacing: -0.058em;
+      text-wrap: balance;
+    }
+
+    .section-lede {
+      max-width: 780px;
+      margin: 30px 0 0;
+      color: #5f646c;
+      font-size: clamp(17px, 1.55vw, 22px);
+      line-height: 1.65;
+      letter-spacing: -0.018em;
+    }
+
+    .support-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .support-item {
+      display: grid;
+      grid-template-columns: clamp(54px, 6vw, 92px) minmax(190px, 0.42fr) minmax(0, 0.88fr);
+      gap: clamp(22px, 4vw, 62px);
+      align-items: start;
+      padding: clamp(30px, 4.5vw, 62px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .support-number {
+      padding-top: 4px;
+      color: #9a9ea4;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 2.6vw, 38px);
+      font-style: italic;
+      line-height: 1;
+    }
+
+    .support-item h3 {
+      margin: 0;
+      font-size: clamp(24px, 2.6vw, 38px);
+      font-weight: 560;
+      line-height: 1.08;
+      letter-spacing: -0.042em;
+    }
+
+    .support-item p {
+      max-width: 720px;
+      margin: 0;
+      color: #555a62;
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.72;
+    }
+
+    .coverage-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 28px;
+    }
+
+    .coverage-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .coverage-link span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(17, 19, 24, 0.28);
+      border-radius: 50%;
+      transition: transform 0.35s var(--ease-out), background 0.35s ease, color 0.35s ease;
+    }
+
+    .coverage-link:hover span,
+    .coverage-link:focus-visible span {
+      color: #fff;
+      background: var(--ink);
+      transform: translate(3px, -3px);
+    }
+
+    .join-panel {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.76fr) minmax(0, 1.24fr);
+      gap: clamp(48px, 8vw, 132px);
+      margin-top: clamp(112px, 16vw, 220px);
+      padding-top: clamp(52px, 7vw, 92px);
+      border-top: 2px solid var(--ink);
+    }
+
+    .join-heading .section-label {
+      margin: 0 0 22px;
+    }
+
+    .join-heading h2 {
+      margin: 0;
+      font-size: clamp(68px, 10vw, 152px);
+      font-weight: 510;
+      line-height: 0.82;
+      letter-spacing: -0.07em;
+    }
+
+    .join-copy {
+      max-width: 850px;
+      margin: 0 0 clamp(58px, 7vw, 92px);
+      font-size: clamp(25px, 3.25vw, 48px);
+      line-height: 1.14;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+
+    .contact-list {
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-item {
+      display: grid;
+      grid-template-columns: minmax(130px, 0.3fr) minmax(0, 1fr);
+      gap: 28px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .contact-label {
+      color: #72777e;
+      font-size: 10px;
+      font-weight: 770;
+      letter-spacing: 0.16em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .contact-value,
+    .contact-value a {
+      color: var(--ink);
+      font-size: clamp(15px, 1.28vw, 18px);
+      line-height: 1.65;
+      text-decoration: none;
+    }
+
+    .contact-value a {
+      display: inline-block;
+      border-bottom: 1px solid rgba(17, 19, 24, 0.3);
+      transition: border-color 0.25s ease;
+    }
+
+    .contact-value a:hover,
+    .contact-value a:focus-visible {
+      border-color: var(--ink);
+    }
+
+    .location-panel {
+      margin-top: clamp(96px, 13vw, 176px);
+      padding-top: clamp(46px, 6vw, 78px);
+      border-top: 1px solid var(--line);
+    }
+
+    .location-head {
+      display: grid;
+      grid-template-columns: minmax(175px, 0.32fr) minmax(0, 1fr);
+      gap: clamp(36px, 7vw, 116px);
+      align-items: end;
+      margin-bottom: clamp(34px, 5vw, 58px);
+    }
+
+    .location-title {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(38px, 5.4vw, 78px);
+      font-weight: 520;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+    }
+
+    .location-description {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: #646970;
+      font-size: clamp(16px, 1.35vw, 19px);
+      line-height: 1.68;
+    }
+
+    .map-frame {
+      position: relative;
+      width: 100%;
+      min-height: 390px;
+      aspect-ratio: 16 / 7.6;
+      overflow: hidden;
+      border: 1px solid rgba(17, 19, 24, 0.16);
+      background: #ececea;
+    }
+
+    .map-frame iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+      border: 0;
+      filter: grayscale(0.2) contrast(1.03);
+    }
+
+    .location-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 30px;
+      padding-top: 20px;
+      color: #6d7279;
+      font-size: 11px;
+      font-weight: 720;
+      letter-spacing: 0.12em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .location-address {
+      max-width: 760px;
+      font-style: normal;
+    }
+
+    .map-link {
+      flex: 0 0 auto;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(17, 19, 24, 0.3);
+      transition: border-color 0.25s ease;
+    }
+
+    .map-link:hover,
+    .map-link:focus-visible {
+      border-color: var(--ink);
+    }
+
+    .lab-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 30px clamp(22px, 6vw, 96px) 38px;
+      border-top: 1px solid var(--line);
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 10px;
+      font-weight: 720;
+      letter-spacing: 0.14em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .lab-footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ---------- PUZZLE GATE ---------- */
+    .puzzle-gate {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: transparent;
+      color: var(--ink);
+      isolation: isolate;
+    }
+
+    .puzzle-gate.is-gone {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .white-curtain {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .curtain-hole {
+      transform-box: fill-box;
+      transform-origin: center;
+      transform: scale(0);
+    }
+
+    .puzzle-gate.is-revealing .curtain-hole {
+      transform: scale(32);
+      transition: transform 1.72s var(--ease-in-out);
+    }
+
+    .gate-topline {
+      position: absolute;
+      top: clamp(24px, 4vh, 44px);
+      left: clamp(22px, 4vw, 58px);
+      right: clamp(22px, 4vw, 58px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #62666d;
+      font-size: 10px;
+      font-weight: 720;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: opacity 0.5s ease, transform 0.65s var(--ease-out);
+    }
+
+    .gate-topline::before {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -15px;
+      height: 1px;
+      background: rgba(17, 19, 24, 0.11);
+      content: "";
+    }
+
+    .gate-number {
+      color: #a1a4a9;
+    }
+
+    .gate-content {
+      width: min(920px, calc(100vw - 38px));
+      padding-top: 40px;
+      transition: opacity 0.5s ease, transform 0.75s var(--ease-out), filter 0.75s ease;
+    }
+
+    .puzzle-gate.is-revealing .gate-content,
+    .puzzle-gate.is-revealing .gate-topline {
+      opacity: 0;
+      transform: scale(0.97) translateY(-10px);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .interaction {
+      position: relative;
+      width: 100%;
+      height: clamp(360px, 49vw, 470px);
+      touch-action: none;
+    }
+
+    .board-wrap {
+      position: absolute;
+      left: clamp(0px, 3.5vw, 48px);
+      top: 50%;
+      width: clamp(270px, 39vw, 390px);
+      aspect-ratio: 1;
+      transform: translateY(-50%);
+      filter: drop-shadow(0 25px 35px rgba(15, 17, 20, 0.12));
+    }
+
+    .board-wrap::before {
+      position: absolute;
+      inset: 8.5%;
+      border-radius: 12%;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: inset 0 0 0 1px rgba(17, 19, 24, 0.035);
+      content: "";
+    }
+
+    .board-svg {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .slot-shadow {
+      filter: drop-shadow(0 9px 13px rgba(0, 0, 0, 0.28));
+    }
+
+    .piece-home {
+      position: absolute;
+      width: 160px;
+      height: 1px;
+      background: rgba(17, 19, 24, 0.12);
+      transform: translateX(-50%);
+    }
+
+    .piece-home::before {
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      width: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #111318;
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .piece-home span {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      color: #93969c;
+      font-size: 9px;
+      font-weight: 720;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .draggable-piece {
+      position: absolute;
+      z-index: 5;
+      width: clamp(104px, 16.5vw, 142px);
+      aspect-ratio: 1;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+      will-change: left, top, transform;
+      transition:
+        left 0.62s var(--ease-out),
+        top 0.62s var(--ease-out),
+        transform 0.32s var(--ease-out),
+        filter 0.35s ease,
+        opacity 0.35s ease;
+      filter: drop-shadow(0 15px 18px rgba(15, 17, 20, 0.19));
+    }
+
+    .draggable-piece:hover {
+      transform: translateY(-4px) rotate(-2deg);
+      filter: drop-shadow(0 20px 24px rgba(15, 17, 20, 0.23));
+    }
+
+    .draggable-piece:focus-visible {
+      outline: 2px solid #111318;
+      outline-offset: 7px;
+      border-radius: 18px;
+    }
+
+    .draggable-piece.is-dragging {
+      cursor: grabbing;
+      transition: transform 0.08s linear, filter 0.2s ease;
+      filter: drop-shadow(0 26px 28px rgba(15, 17, 20, 0.28));
+    }
+
+    .draggable-piece.is-returning {
+      animation: pieceWiggle 0.48s ease;
+    }
+
+    .draggable-piece.is-locked {
+      cursor: default;
+      filter: drop-shadow(0 5px 5px rgba(15, 17, 20, 0.12));
+      pointer-events: none;
+    }
+
+    .draggable-piece svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .piece-glint {
+      opacity: 0.58;
+      transition: opacity 0.25s ease;
+    }
+
+    .draggable-piece:hover .piece-glint,
+    .draggable-piece.is-dragging .piece-glint {
+      opacity: 1;
+    }
+
+    .gate-copy {
+      display: grid;
+      justify-items: center;
+      margin-top: clamp(10px, 2vh, 24px);
+      text-align: center;
+    }
+
+    .instruction {
+      margin: 0;
+      font-size: clamp(17px, 2vw, 22px);
+      font-weight: 530;
+      letter-spacing: -0.02em;
+    }
+
+    .instruction-sub {
+      margin: 9px 0 0;
+      color: #8b8e94;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 6px;
+      aspect-ratio: 1;
+      margin-top: 15px;
+      border-radius: 50%;
+      background: #b8bbc0;
+      box-shadow: 0 0 0 0 rgba(17, 19, 24, 0.12);
+      animation: breathe 1.8s ease-in-out infinite;
+    }
+
+    .puzzle-gate.is-solved .status-dot {
+      background: #111318;
+      animation: solvedPulse 0.6s var(--ease-out) both;
+    }
+
+    .success-ring {
+      position: absolute;
+      z-index: 9;
+      left: 50%;
+      top: 50%;
+      width: 12px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(17, 19, 24, 0.7);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.4);
+    }
+
+    .puzzle-gate.is-solved .success-ring {
+      animation: ringOut 0.95s var(--ease-out) both;
+    }
+
+    @keyframes pieceWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      28% { transform: rotate(-5deg); }
+      58% { transform: rotate(4deg); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(0.86); opacity: 0.45; }
+      50% { transform: scale(1.18); opacity: 1; }
+    }
+
+    @keyframes solvedPulse {
+      0% { box-shadow: 0 0 0 0 rgba(17, 19, 24, 0.18); }
+      100% { box-shadow: 0 0 0 15px rgba(17, 19, 24, 0); }
+    }
+
+    @keyframes ringOut {
+      0% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.4); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(34); }
+    }
+
+    @media (max-width: 760px) {
+      .site-header {
+        height: 68px;
+      }
+
+      .header-link {
+        display: none;
+      }
+
+      .hero {
+        align-items: end;
+        padding-bottom: 34px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-aside {
+        max-width: 400px;
+        justify-self: start;
+      }
+
+      .hero-title em {
+        margin-left: 0.24em;
+      }
+
+      .hero-index {
+        display: none;
+      }
+
+      .hero-aside {
+        max-width: 560px;
+      }
+
+      .support-intro,
+      .join-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .support-intro {
+        gap: 24px;
+      }
+
+      .support-item {
+        grid-template-columns: 50px minmax(0, 1fr);
+        gap: 18px 22px;
+      }
+
+      .support-item p {
+        grid-column: 2;
+      }
+
+      .coverage-row {
+        justify-content: flex-start;
+      }
+
+      .join-panel {
+        gap: 52px;
+      }
+
+      .contact-item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .location-head {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .map-frame {
+        min-height: 360px;
+        aspect-ratio: 4 / 3;
+      }
+
+      .location-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .lab-footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .gate-content {
+        width: min(480px, calc(100vw - 28px));
+        padding-top: 58px;
+      }
+
+      .interaction {
+        height: min(65vh, 540px);
+        min-height: 440px;
+      }
+
+      .board-wrap {
+        left: 50%;
+        top: 4px;
+        width: min(76vw, 326px);
+        transform: translateX(-50%);
+      }
+
+      .piece-home {
+        width: 130px;
+      }
+
+      .gate-copy {
+        margin-top: 4px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .gate-topline {
+        top: 19px;
+      }
+
+      .gate-topline::before {
+        bottom: -11px;
+      }
+
+      .interaction {
+        height: 445px;
+        min-height: 445px;
+      }
+
+      .board-wrap {
+        width: min(72vw, 286px);
+      }
+
+      .instruction {
+        font-size: 16px;
+      }
+
+      .hero-title {
+        font-size: clamp(43px, 13.5vw, 62px);
+      }
+
+      .hero-aside p {
+        font-size: 17px;
+        line-height: 1.58;
+      }
+
+      .replay-button {
+        font-size: 13px;
+      }
+
+      .support-item {
+        grid-template-columns: 38px minmax(0, 1fr);
+      }
+
+      .join-heading h2 {
+        font-size: clamp(66px, 23vw, 98px);
+      }
+
+      .map-frame {
+        min-height: 330px;
+      }
+
+      .location-title {
+        font-size: clamp(38px, 12vw, 54px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="site-shell" id="mainPage" aria-hidden="true" inert>
+    <header class="site-header">
+      <div class="header-actions">
+        <button class="replay-button" id="replayButton" type="button">Replay intro</button>
+      </div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Abstract sailing seascape illustration">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0.9" y2="1">
+              <stop offset="0" stop-color="#eadccf" />
+              <stop offset="0.28" stop-color="#e5b79c" />
+              <stop offset="0.62" stop-color="#6d8a8f" />
+              <stop offset="1" stop-color="#132531" />
+            </linearGradient>
+            <radialGradient id="sunGlow" cx="61%" cy="34%" r="44%">
+              <stop offset="0" stop-color="#fff6de" stop-opacity="0.95" />
+              <stop offset="0.44" stop-color="#ffd7ae" stop-opacity="0.44" />
+              <stop offset="1" stop-color="#ffd7ae" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="seaFront" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6f8d93" />
+              <stop offset="0.45" stop-color="#264d58" />
+              <stop offset="1" stop-color="#0d232e" />
+            </linearGradient>
+            <linearGradient id="seaBack" x1="0" y1="0" x2="1" y2="0.9">
+              <stop offset="0" stop-color="#8ca4a6" />
+              <stop offset="1" stop-color="#325761" />
+            </linearGradient>
+            <linearGradient id="coast" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#a8664e" />
+              <stop offset="0.45" stop-color="#764636" />
+              <stop offset="1" stop-color="#2a2d31" />
+            </linearGradient>
+            <linearGradient id="sail" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#fff7ed" />
+              <stop offset="1" stop-color="#f4d7ba" />
+            </linearGradient>
+            <filter id="softNoise" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="8" result="noise" />
+              <feColorMatrix in="noise" type="saturate" values="0" />
+              <feComponentTransfer>
+                <feFuncA type="table" tableValues="0 0.11" />
+              </feComponentTransfer>
+            </filter>
+            <filter id="blur40"><feGaussianBlur stdDeviation="40" /></filter>
+            <filter id="blur22"><feGaussianBlur stdDeviation="22" /></filter>
+          </defs>
+
+          <rect width="1600" height="1000" fill="url(#sky)" />
+          <ellipse cx="1040" cy="280" rx="500" ry="320" fill="url(#sunGlow)" filter="url(#blur40)" />
+          <circle cx="1090" cy="290" r="68" fill="#f6e6cf" opacity="0.92" />
+
+          <path d="M0 520 C240 486 415 470 604 498 C815 528 1096 513 1600 484 L1600 650 C1270 608 1040 626 820 600 C560 570 286 600 0 654 Z" fill="url(#seaBack)" opacity="0.9" />
+          <path d="M0 592 C250 544 470 560 656 586 C885 618 1144 598 1600 555 L1600 1000 L0 1000 Z" fill="url(#seaFront)" />
+          <path d="M0 660 C252 615 436 642 646 668 C884 698 1140 676 1600 622" fill="none" stroke="#d8e4e0" stroke-opacity="0.18" stroke-width="4" />
+          <path d="M0 752 C260 720 456 748 684 770 C942 796 1196 768 1600 706" fill="none" stroke="#e8efea" stroke-opacity="0.13" stroke-width="3" />
+          <path d="M0 842 C306 804 510 832 722 852 C934 872 1174 850 1600 784" fill="none" stroke="#e8efea" stroke-opacity="0.11" stroke-width="2" />
+
+          <path d="M0 1000 L0 334 C134 372 214 450 284 542 C350 630 454 682 608 700 C494 762 392 856 350 1000 Z" fill="url(#coast)" />
+          <path d="M0 1000 L0 484 C110 502 170 566 236 656 C299 744 364 798 452 830 L312 1000 Z" fill="#243830" opacity="0.86" />
+          <path d="M1268 1000 C1276 890 1344 812 1466 770 C1398 846 1388 926 1414 1000 Z" fill="#25433f" opacity="0.84" />
+          <path d="M1420 1000 C1386 896 1416 772 1600 692 L1600 1000 Z" fill="#102832" />
+
+          <g opacity="0.36" fill="#f6dec4">
+            <ellipse cx="860" cy="560" rx="150" ry="8" />
+            <ellipse cx="1030" cy="630" rx="116" ry="5" />
+            <ellipse cx="724" cy="704" rx="158" ry="5" />
+          </g>
+
+          <g transform="translate(0 10)">
+            <path d="M700 710 C732 650 770 590 812 522 L820 706 Z" fill="url(#sail)" />
+            <path d="M821 698 C862 644 898 610 944 560 L952 706 Z" fill="#f8e9d9" opacity="0.92" />
+            <path d="M820 488 L820 738" fill="none" stroke="#2c3338" stroke-width="7" stroke-linecap="round" />
+            <path d="M760 742 C814 724 892 724 974 742 C904 756 830 760 760 742 Z" fill="#202f38" />
+            <path d="M744 756 C820 748 904 748 988 756" fill="none" stroke="#ebf2ef" stroke-opacity="0.28" stroke-width="3" stroke-linecap="round" />
+          </g>
+
+          <g transform="translate(140 -10) scale(0.78)" opacity="0.82">
+            <path d="M1030 670 C1054 625 1088 570 1122 516 L1128 666 Z" fill="#f6ddc1" />
+            <path d="M1129 660 C1160 620 1194 588 1232 548 L1238 668 Z" fill="#fff2e3" opacity="0.95" />
+            <path d="M1128 492 L1128 696" fill="none" stroke="#334049" stroke-width="6" stroke-linecap="round" />
+            <path d="M1084 700 C1138 688 1192 688 1250 700 C1196 712 1136 714 1084 700 Z" fill="#1d2f39" />
+          </g>
+
+          <path d="M426 428 C580 356 750 362 894 410" fill="none" stroke="#f8ead9" stroke-width="8" stroke-linecap="round" stroke-opacity="0.32" filter="url(#blur22)" />
+          <path d="M530 360 C670 304 830 312 950 352" fill="none" stroke="#fff2de" stroke-width="4" stroke-linecap="round" stroke-opacity="0.42" />
+
+          <rect width="1600" height="1000" filter="url(#softNoise)" opacity="0.54" />
+        </svg>
+      </div>
+
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">CYBER FORENCIS INTELLIGENCE LAB · KU-SEJONG</p>
+          <h1 class="hero-title">Where curiosity <em>becomes discovery.</em></h1>
+        </div>
+        <div class="hero-aside">
+          <p>We are always looking for students who will continue to question conventional assumptions. The university has two admission periods—winter and summer—and we encourage prospective students to reach out to us before applying!</p>
+          <a class="round-link" href="#join-us">Join Us <span aria-hidden="true">↘</span></a>
+        </div>
+      </div>
+      <div class="hero-index" aria-hidden="true">Scroll for details · 01 / 02</div>
+    </section>
+
+    <section class="content-section" id="funding">
+      <div class="research-content">
+        <div class="support-intro">
+          <p class="section-label">Funding &amp; Opportunities</p>
+          <div>
+            <h2 class="section-title">Support built around serious research.</h2>
+            <p class="section-lede">As part of the Graduate School of Convergence Security, we provide financial and professional support so that students can focus on ambitious questions, meaningful collaboration, and sustained research.</p>
+          </div>
+        </div>
+
+        <div class="support-list" aria-label="Student funding and opportunities">
+          <article class="support-item">
+            <span class="support-number" aria-hidden="true">01</span>
+            <h3>Tuition Support</h3>
+            <p>Full tuition coverage is provided to incoming students for their first semester. For the remaining semesters, performance-based scholarships equivalent to tuition may be awarded.</p>
+          </article>
+
+          <article class="support-item">
+            <span class="support-number" aria-hidden="true">02</span>
+            <h3>Research Funding</h3>
+            <p>Additional research assistant compensation may be provided according to each student’s level of participation in lab-specific research projects.</p>
+          </article>
+
+          <article class="support-item">
+            <span class="support-number" aria-hidden="true">03</span>
+            <h3>Professional Opportunities</h3>
+            <p>Students may receive opportunities to participate in internships, attend major academic conferences, and join overseas training programs.</p>
+          </article>
+        </div>
+
+        <div class="coverage-row">
+          <a class="coverage-link" href="https://www.sedaily.com/article/20065645?ref=naver" target="_blank" rel="noopener noreferrer">
+            Related coverage <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <section class="join-panel" id="join-us" aria-labelledby="joinTitle">
+          <div class="join-heading">
+            <p class="section-label">Admissions &amp; Collaboration</p>
+            <h2 id="joinTitle">Join Us</h2>
+          </div>
+
+          <div class="join-body">
+            <p class="join-copy">If you’re interested in joining or collaborating, please refer to the information below, and we will contact you soon. We look forward to connecting with you.</p>
+
+            <div class="contact-list" aria-label="Contact information">
+              <div class="contact-item">
+                <span class="contact-label">Email</span>
+                <div class="contact-value"><a href="mailto:youngsookim@korea.ac.kr">youngsookim@korea.ac.kr</a></div>
+              </div>
+
+              <div class="contact-item">
+                <span class="contact-label">Professor’s Office</span>
+                <div class="contact-value">Korea University Research and Business Foundation 415, Sejong Campus</div>
+              </div>
+
+              <div class="contact-item">
+                <span class="contact-label">Laboratory</span>
+                <div class="contact-value">2511, Sejong-ro, Jochiwon-eup, Sejong-si, Republic of Korea<br>(Korea University Research and Business Foundation 417, Sejong Campus)</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="location-panel" aria-labelledby="locationTitle">
+          <div class="location-head">
+            <p class="section-label">Visit the Lab</p>
+            <div>
+              <h2 class="location-title" id="locationTitle">Find us on campus.</h2>
+              <p class="location-description">The map below shows the Korea University Sejong Campus building where our laboratory is located.</p>
+            </div>
+          </div>
+
+          <div class="map-frame">
+            <iframe
+              title="Google Map showing the Cyber Forencis Intelligence Lab at Korea University Sejong Campus"
+              src="https://maps.google.com/maps?q=%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%90%20%EC%84%B8%EC%A2%85%EC%BA%A0%ED%8D%BC%EC%8A%A4%20%EC%82%B0%ED%95%99%ED%98%91%EB%A0%A5%EA%B4%80&amp;t=&amp;z=17&amp;ie=UTF8&amp;iwloc=B&amp;hl=en&amp;output=embed"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div class="location-meta">
+            <address class="location-address">2511, Sejong-ro, Jochiwon-eup, Sejong-si, Republic of Korea · Research and Business Cooperation Building 417, Korea University Sejong Campus</address>
+            <a
+              class="map-link"
+              href="https://www.google.com/maps/search/?api=1&amp;query=%EA%B3%A0%EB%A0%A4%EB%8C%80%ED%95%99%EA%B5%90%20%EC%84%B8%EC%A2%85%EC%BA%A0%ED%8D%BC%EC%8A%A4%20%EC%82%B0%ED%95%99%ED%98%91%EB%A0%A5%EA%B4%80"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Open in Google Maps ↗</a>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <footer class="lab-footer" id="footer">
+      <span>Cyber Forencis Intelligence Lab · KU-Sejong</span>
+      <a href="mailto:youngsookim@korea.ac.kr">youngsookim@korea.ac.kr</a>
+    </footer>
+  </main>
+
+  <section class="puzzle-gate" id="puzzleGate" aria-label="Puzzle entrance">
+    <svg class="white-curtain" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <mask id="curtainMask">
+          <rect width="1000" height="1000" fill="white" />
+          <circle class="curtain-hole" cx="500" cy="500" r="38" fill="black" />
+        </mask>
+      </defs>
+      <rect width="1000" height="1000" fill="#f5f3ee" mask="url(#curtainMask)" />
+    </svg>
+
+    <div class="gate-topline" aria-hidden="true">
+      <span>Human check · Complete the form</span>
+      <span class="gate-number">01 / 01</span>
+    </div>
+
+    <div class="gate-content">
+      <div class="interaction" id="interaction">
+        <div class="board-wrap" id="boardWrap">
+          <svg class="board-svg" viewBox="0 0 340 340" aria-label="White puzzle board with one dark empty space">
+            <defs>
+              <linearGradient id="boardFace" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#f3f3f1" />
+              </linearGradient>
+              <linearGradient id="slotFace" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2b2d31" />
+                <stop offset="1" stop-color="#090a0c" />
+              </linearGradient>
+            </defs>
+
+            <rect x="20" y="20" width="300" height="300" rx="24" fill="url(#boardFace)" stroke="#ecece9" />
+
+            <!-- Subtle jigsaw seams -->
+            <g fill="none" stroke="#d7d8d5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M120 20 V63 C105 63 105 94 120 94 V120" />
+              <path d="M220 20 V56 C235 56 235 86 220 86 V120" />
+              <path d="M20 120 H58 C58 105 89 105 89 120 H120" />
+              <path d="M220 120 H256 C256 105 287 105 287 120 H320" />
+              <path d="M20 220 H57 C57 235 88 235 88 220 H120" />
+              <path d="M220 220 H257 C257 235 288 235 288 220 H320" />
+              <path d="M120 220 V257 C105 257 105 288 120 288 V320" />
+              <path d="M220 220 V258 C235 258 235 289 220 289 V320" />
+
+              <path d="M120 120 H155 C155 105 185 105 185 120 H220" />
+              <path d="M220 120 V155 C235 155 235 185 220 185 V220" />
+              <path d="M220 220 H185 C185 235 155 235 155 220 H120" />
+              <path d="M120 220 V185 C105 185 105 155 120 155 V120" />
+            </g>
+
+            <!-- Small surface details -->
+            <g fill="#e7e7e3">
+              <circle cx="71" cy="70" r="3" />
+              <circle cx="271" cy="72" r="3" />
+              <circle cx="70" cy="270" r="3" />
+              <circle cx="269" cy="270" r="3" />
+            </g>
+
+            <!-- Empty space -->
+            <path
+              id="slotPath"
+              class="slot-shadow"
+              d="M120 120 H155 C155 105 185 105 185 120 H220 V155 C235 155 235 185 220 185 V220 H185 C185 235 155 235 155 220 H120 V185 C105 185 105 155 120 155 Z"
+              fill="url(#slotFace)"
+              stroke="#050608"
+              stroke-width="2"
+            />
+            <path d="M133 132 H154 C159 119 181 119 186 132" fill="none" stroke="#51545a" stroke-width="2" stroke-linecap="round" opacity="0.56" />
+          </svg>
+        </div>
+
+        <div class="piece-home" id="pieceHome" aria-hidden="true"><span>Drag this piece</span></div>
+
+        <button
+          class="draggable-piece"
+          id="draggablePiece"
+          type="button"
+          aria-label="Drag the puzzle piece into the dark empty space. Press Enter to place it automatically."
+        >
+          <svg viewBox="104 104 132 132" aria-hidden="true">
+            <defs>
+              <linearGradient id="pieceFace" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="0.52" stop-color="#f6f6f3" />
+                <stop offset="1" stop-color="#dededa" />
+              </linearGradient>
+              <linearGradient id="pieceEdge" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#bbbbb6" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M120 120 H155 C155 105 185 105 185 120 H220 V155 C235 155 235 185 220 185 V220 H185 C185 235 155 235 155 220 H120 V185 C105 185 105 155 120 155 Z"
+              fill="url(#pieceFace)"
+              stroke="url(#pieceEdge)"
+              stroke-width="2"
+            />
+            <path class="piece-glint" d="M126 126 H153 C160 112 181 112 188 126" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+            <circle cx="145" cy="151" r="4" fill="#e7e7e2" />
+          </svg>
+        </button>
+
+        <div class="success-ring" aria-hidden="true"></div>
+      </div>
+
+      <div class="gate-copy">
+        <p class="instruction">Drag the piece into the empty space.</p>
+        <p class="instruction-sub" id="dragStatus" aria-live="polite">Click, hold, and move</p>
+        <span class="status-dot" aria-hidden="true"></span>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      const gate = document.getElementById('puzzleGate');
+      const mainPage = document.getElementById('mainPage');
+      const interaction = document.getElementById('interaction');
+      const boardWrap = document.getElementById('boardWrap');
+      const piece = document.getElementById('draggablePiece');
+      const pieceHome = document.getElementById('pieceHome');
+      const slotPath = document.getElementById('slotPath');
+      const status = document.getElementById('dragStatus');
+      const replayButton = document.getElementById('replayButton');
+      const successRing = interaction.querySelector('.success-ring');
+
+      let dragging = false;
+      let solved = false;
+      let pointerOffsetX = 0;
+      let pointerOffsetY = 0;
+      let startPosition = { left: 0, top: 0 };
+      let lastPointerX = 0;
+      let lastPointerY = 0;
+      let revealTimers = [];
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function clearRevealTimers() {
+        revealTimers.forEach(window.clearTimeout);
+        revealTimers = [];
+      }
+
+      function getRelativeRect(element) {
+        const parentRect = interaction.getBoundingClientRect();
+        const rect = element.getBoundingClientRect();
+        return {
+          left: rect.left - parentRect.left,
+          top: rect.top - parentRect.top,
+          width: rect.width,
+          height: rect.height,
+          centerX: rect.left - parentRect.left + rect.width / 2,
+          centerY: rect.top - parentRect.top + rect.height / 2,
+        };
+      }
+
+      function positionPieceAtHome(instant = false) {
+        if (solved) return;
+
+        const measuredSlot = slotPath.getBoundingClientRect();
+        if (measuredSlot.width > 0) {
+          piece.style.width = `${measuredSlot.width}px`;
+        }
+
+        const interactionRect = interaction.getBoundingClientRect();
+        const boardRect = getRelativeRect(boardWrap);
+        const pieceWidth = piece.offsetWidth;
+        const pieceHeight = piece.offsetHeight;
+        const isMobile = window.innerWidth <= 760;
+
+        let left;
+        let top;
+
+        if (isMobile) {
+          left = interactionRect.width / 2 - pieceWidth / 2;
+          top = Math.min(
+            interactionRect.height - pieceHeight - 22,
+            boardRect.top + boardRect.height + 20
+          );
+        } else {
+          left = Math.min(
+            interactionRect.width - pieceWidth - 20,
+            boardRect.left + boardRect.width + Math.max(46, interactionRect.width * 0.075)
+          );
+          top = boardRect.top + boardRect.height / 2 - pieceHeight / 2;
+        }
+
+        startPosition = { left, top };
+
+        if (instant) piece.style.transition = 'none';
+        piece.style.left = `${left}px`;
+        piece.style.top = `${top}px`;
+        piece.style.transform = 'translate3d(0,0,0) rotate(0deg)';
+
+        const homeY = top + pieceHeight + (isMobile ? 8 : 15);
+        pieceHome.style.left = `${left + pieceWidth / 2}px`;
+        pieceHome.style.top = `${homeY}px`;
+
+        if (instant) {
+          requestAnimationFrame(() => {
+            piece.style.transition = '';
+          });
+        }
+      }
+
+      function targetPosition() {
+        const slotRect = getRelativeRect(slotPath);
+        return {
+          left: slotRect.centerX - piece.offsetWidth / 2,
+          top: slotRect.centerY - piece.offsetHeight / 2,
+          centerX: slotRect.centerX,
+          centerY: slotRect.centerY,
+        };
+      }
+
+      function setPiecePosition(left, top, rotation = 0) {
+        const maxLeft = interaction.clientWidth - piece.offsetWidth;
+        const maxTop = interaction.clientHeight - piece.offsetHeight;
+        const clampedLeft = Math.max(0, Math.min(maxLeft, left));
+        const clampedTop = Math.max(0, Math.min(maxTop, top));
+
+        piece.style.left = `${clampedLeft}px`;
+        piece.style.top = `${clampedTop}px`;
+        piece.style.transform = `translate3d(0,0,0) rotate(${rotation}deg) scale(1.035)`;
+      }
+
+      function onPointerDown(event) {
+        if (solved || (event.pointerType === 'mouse' && event.button !== 0)) return;
+
+        dragging = true;
+        const pieceRect = piece.getBoundingClientRect();
+        pointerOffsetX = event.clientX - pieceRect.left;
+        pointerOffsetY = event.clientY - pieceRect.top;
+        lastPointerX = event.clientX;
+        lastPointerY = event.clientY;
+
+        piece.classList.remove('is-returning');
+        piece.classList.add('is-dragging');
+        piece.setPointerCapture(event.pointerId);
+        status.textContent = 'Move toward the dark space';
+        event.preventDefault();
+      }
+
+      function onPointerMove(event) {
+        if (!dragging || solved) return;
+
+        const interactionRect = interaction.getBoundingClientRect();
+        const left = event.clientX - interactionRect.left - pointerOffsetX;
+        const top = event.clientY - interactionRect.top - pointerOffsetY;
+        const velocityX = event.clientX - lastPointerX;
+        const rotation = Math.max(-6, Math.min(6, velocityX * 0.65));
+
+        setPiecePosition(left, top, rotation);
+        lastPointerX = event.clientX;
+        lastPointerY = event.clientY;
+        event.preventDefault();
+      }
+
+      function finishDrag(event) {
+        if (!dragging || solved) return;
+
+        dragging = false;
+        piece.classList.remove('is-dragging');
+        if (piece.hasPointerCapture(event.pointerId)) {
+          piece.releasePointerCapture(event.pointerId);
+        }
+
+        const target = targetPosition();
+        const pieceRect = getRelativeRect(piece);
+        const distance = Math.hypot(
+          pieceRect.centerX - target.centerX,
+          pieceRect.centerY - target.centerY
+        );
+        const dropTolerance = Math.max(54, piece.offsetWidth * 0.55);
+
+        if (distance <= dropTolerance) {
+          solvePuzzle();
+        } else {
+          returnPieceHome();
+        }
+      }
+
+      function returnPieceHome() {
+        piece.classList.add('is-returning');
+        piece.style.left = `${startPosition.left}px`;
+        piece.style.top = `${startPosition.top}px`;
+        piece.style.transform = 'translate3d(0,0,0) rotate(0deg)';
+        status.textContent = 'Almost — try the dark space';
+
+        window.setTimeout(() => {
+          piece.classList.remove('is-returning');
+          if (!solved) status.textContent = 'Click, hold, and move';
+        }, 720);
+      }
+
+      function solvePuzzle() {
+        if (solved) return;
+        solved = true;
+        dragging = false;
+
+        const target = targetPosition();
+        piece.classList.remove('is-dragging', 'is-returning');
+        piece.classList.add('is-locked');
+        piece.style.left = `${target.left}px`;
+        piece.style.top = `${target.top}px`;
+        piece.style.transform = 'translate3d(0,0,0) rotate(0deg) scale(1)';
+        successRing.style.left = `${target.centerX}px`;
+        successRing.style.top = `${target.centerY}px`;
+        pieceHome.style.opacity = '0';
+        gate.classList.add('is-solved');
+        status.textContent = 'Perfect fit';
+
+        const revealDelay = prefersReducedMotion ? 40 : 520;
+        const finishDelay = prefersReducedMotion ? 100 : 2250;
+
+        revealTimers.push(window.setTimeout(() => {
+          gate.classList.add('is-revealing');
+          document.body.classList.add('is-opening');
+          mainPage.inert = false;
+          mainPage.setAttribute('aria-hidden', 'false');
+        }, revealDelay));
+
+        revealTimers.push(window.setTimeout(() => {
+          gate.classList.add('is-gone');
+          document.body.classList.add('is-unlocked');
+          document.body.classList.remove('is-opening');
+        }, finishDelay));
+      }
+
+      function resetIntro() {
+        clearRevealTimers();
+        solved = false;
+        dragging = false;
+
+        window.scrollTo({ top: 0, behavior: 'auto' });
+        document.body.classList.remove('is-opening', 'is-unlocked');
+        mainPage.inert = true;
+        mainPage.setAttribute('aria-hidden', 'true');
+        gate.classList.remove('is-gone', 'is-revealing', 'is-solved');
+        piece.classList.remove('is-locked', 'is-dragging', 'is-returning');
+        pieceHome.style.opacity = '1';
+        status.textContent = 'Click, hold, and move';
+
+        requestAnimationFrame(() => {
+          positionPieceAtHome(true);
+          piece.focus({ preventScroll: true });
+        });
+      }
+
+      piece.addEventListener('pointerdown', onPointerDown);
+      piece.addEventListener('pointermove', onPointerMove);
+      piece.addEventListener('pointerup', finishDrag);
+      piece.addEventListener('pointercancel', finishDrag);
+      piece.addEventListener('lostpointercapture', () => {
+        if (dragging && !solved) {
+          dragging = false;
+          piece.classList.remove('is-dragging');
+          returnPieceHome();
+        }
+      });
+
+      piece.addEventListener('keydown', (event) => {
+        if (!solved && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          solvePuzzle();
+        }
+      });
+
+      replayButton.addEventListener('click', resetIntro);
+
+      let resizeFrame;
+      window.addEventListener('resize', () => {
+        window.cancelAnimationFrame(resizeFrame);
+        resizeFrame = window.requestAnimationFrame(() => {
+          if (!solved) positionPieceAtHome(true);
+        });
+      });
+
+      window.addEventListener('load', () => positionPieceAtHome(true));
+      requestAnimationFrame(() => positionPieceAtHome(true));
+    })();
+  </script>
+</body>
+</html>
