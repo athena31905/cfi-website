@@ -232,7 +232,12 @@
       overflow: visible;
     }
 
-    .discover-hit-area { fill: transparent; pointer-events: all; }
+    .discover-hit-area { fill: transparent; pointer-events: none; }
+
+    .discover-link svg,
+    .discover-link svg * { pointer-events: none; }
+
+    .discover-link { cursor: pointer; }
 
     .discover-label {
       fill: #161616;
@@ -889,6 +894,287 @@
       .deck-navigation { align-self: flex-end; }
     }
 
+
+
+    /* ================================================================
+       TYPOGRAPHY, SCROLLBAR, AND MOBILE CORRECTIONS
+       ================================================================ */
+    html,
+    body {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    body { overflow-y: auto; }
+
+    .hero {
+      padding: clamp(52px, 5vw, 84px) 0 clamp(78px, 7vw, 112px);
+    }
+
+    .hero-title {
+      max-width: 820px;
+      font-size: clamp(42px, 4.25vw, 68px);
+      line-height: 1.28;
+      letter-spacing: -.03em;
+    }
+
+    .hero-logo-wrap { width: min(330px, 25vw); }
+
+    .hero-quote {
+      max-width: 1220px;
+      margin-top: clamp(52px, 6vw, 84px);
+      font-size: clamp(18px, 1.55vw, 26px);
+      line-height: 1.42;
+    }
+
+    .home-section { padding: clamp(64px, 7vw, 106px) 0; }
+
+    .section-title {
+      font-size: clamp(34px, 3.1vw, 50px);
+      line-height: 1.08;
+      letter-spacing: -.036em;
+    }
+
+    .interest-stage { margin-top: clamp(48px, 5.2vw, 82px); }
+
+    .cta-row { margin-top: clamp(36px, 4vw, 62px); }
+
+    .discover-link {
+      width: min(184px, 100%);
+      height: 78px;
+    }
+
+    .discover-label { font-size: 17px; }
+
+    .working-grid {
+      gap: clamp(48px, 7vw, 112px);
+      margin-top: clamp(52px, 5.5vw, 86px);
+    }
+
+    .working-copy {
+      max-width: 470px;
+      font-size: clamp(28px, 2.65vw, 42px);
+      line-height: 1.34;
+    }
+
+    .deck-card-title { font-size: clamp(14px, 1.12vw, 18px); }
+
+    .provide-grid { margin-top: clamp(50px, 5vw, 82px); }
+
+    .benefit { min-height: clamp(200px, 16vw, 258px); }
+
+    .benefit-number { font-size: clamp(27px, 2.15vw, 36px); }
+
+    .benefit-title {
+      margin-top: clamp(32px, 3.6vw, 58px);
+      font-size: clamp(23px, 2vw, 34px);
+    }
+
+    .news-title { font-size: clamp(40px, 4vw, 60px); }
+
+    @media (max-width: 1100px) {
+      .hero-title { font-size: clamp(40px, 5.5vw, 60px); }
+      .section-title { font-size: clamp(33px, 4.4vw, 46px); }
+      .working-copy { font-size: clamp(27px, 4.2vw, 38px); }
+    }
+
+    @media (max-width: 760px) {
+      :root { --content: min(100% - 24px, 720px); }
+
+      .hero { padding: 30px 0 62px; }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .hero-title {
+        max-width: 100%;
+        font-size: clamp(34px, 10vw, 44px);
+        line-height: 1.2;
+        letter-spacing: -.024em;
+      }
+
+      .hero-logo-wrap {
+        order: initial;
+        justify-self: end;
+        width: min(156px, 40vw);
+        margin: 2px 2vw 0 0;
+      }
+
+      .hero-quote {
+        max-width: 360px;
+        margin-top: 38px;
+        font-size: clamp(16px, 4.65vw, 19px);
+        line-height: 1.48;
+      }
+
+      .home-section { padding: 56px 0; }
+
+      .section-title {
+        font-size: clamp(30px, 8.4vw, 38px);
+        line-height: 1.08;
+      }
+
+      .interest-stage { margin-top: 34px; }
+
+      .interest-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        align-items: start;
+      }
+
+      .interest-card { border-radius: 2px; }
+      .interest-card-1 { aspect-ratio: 385 / 462; }
+      .interest-card-2 { aspect-ratio: 316 / 400; margin-top: 24px; }
+      .interest-card-3 { aspect-ratio: 373 / 475; margin-top: -6px; }
+      .interest-card-4 { aspect-ratio: 330 / 351; margin-top: 22px; }
+
+      .cta-row { margin-top: 30px; }
+
+      .discover-link {
+        width: 158px;
+        height: 67px;
+      }
+
+      .working-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-top: 38px;
+      }
+
+      .working-copy {
+        order: -1;
+        justify-self: start;
+        max-width: 330px;
+        font-size: clamp(25px, 7.4vw, 32px);
+        line-height: 1.3;
+        text-align: left;
+      }
+
+      .project-showcase { order: 2; }
+
+      .project-frame {
+        width: min(100%, 440px);
+        margin-inline: auto;
+        aspect-ratio: 1 / 1.02;
+        padding: 9px;
+      }
+
+      .deck-card {
+        width: min(68vw, 248px);
+        height: 76%;
+        min-height: 238px;
+        padding: 15px;
+        border-radius: 14px;
+      }
+
+      .deck-card-agency { margin-top: 13px; }
+      .deck-card-title { margin-top: 13px; font-size: clamp(14px, 4vw, 17px); }
+      .deck-card-footer { padding-top: 12px; font-size: 9.5px; }
+
+      .deck-toolbar {
+        min-height: 42px;
+        padding-top: 10px;
+        font-size: 10.5px;
+      }
+
+      .deck-instruction { max-width: 205px; }
+
+      .provide-grid { margin-top: 38px; }
+
+      .benefit {
+        display: flex;
+        min-height: 126px;
+        align-items: center;
+        gap: 18px;
+        padding: 22px 50px 22px 20px;
+      }
+
+      .benefit-number {
+        flex: 0 0 auto;
+        font-size: 27px;
+      }
+
+      .benefit-title {
+        max-width: none;
+        flex: 1 1 auto;
+        margin: 0;
+        font-size: clamp(22px, 6.3vw, 27px);
+        line-height: 1.16;
+      }
+
+      .benefit-arrow {
+        top: 50%;
+        right: 18px;
+        bottom: auto;
+        opacity: .35;
+        transform: translateY(-50%);
+      }
+
+      .benefit:hover .benefit-arrow,
+      .benefit:focus-within .benefit-arrow {
+        opacity: 1;
+        transform: translateY(-50%);
+      }
+
+      .news-section { padding: 62px 0 92px; }
+      .news-title { font-size: clamp(36px, 10vw, 46px); }
+      .news-rule { width: 104px; margin-top: 20px; }
+    }
+
+    @media (max-width: 500px) {
+      :root { --content: calc(100% - 20px); }
+
+      .hero-title { font-size: clamp(32px, 9.8vw, 40px); }
+      .hero-logo-wrap { width: min(138px, 37vw); }
+
+      .section-title.is-right { text-align: right; }
+
+      .interest-layout {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .interest-card-2 { margin-top: 18px; }
+      .interest-card-3 { margin-top: -4px; }
+      .interest-card-4 { margin-top: 16px; }
+
+      .cta-row.is-right { justify-content: flex-end; }
+      .cta-row.is-left { justify-content: flex-start; }
+
+      .project-frame {
+        width: min(100%, 405px);
+        aspect-ratio: 1 / 1.08;
+      }
+
+      .deck-card {
+        width: min(69vw, 238px);
+        height: 75%;
+        min-height: 226px;
+      }
+
+      .deck-toolbar {
+        align-items: center;
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .deck-instruction {
+        max-width: 180px;
+        line-height: 1.35;
+      }
+
+      .deck-navigation { align-self: auto; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
 
@@ -955,7 +1241,7 @@
         </div>
 
         <div class="cta-row is-right" data-reveal>
-          <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_top" aria-label="Discover CFI research">
+          <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_blank" rel="noopener noreferrer" aria-label="Open the CFI Research page">
             <svg viewBox="0 0 260 108" aria-hidden="true">
               <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
               <text class="discover-label" x="34" y="61">DISCOVER</text>
@@ -976,7 +1262,7 @@
         <div class="working-grid">
           <div class="project-showcase" data-reveal style="--reveal-delay: 80ms;">
             <div class="project-frame">
-              <div class="project-frame-inner" id="project-frame" aria-label="Ongoing project card deck">
+              <div class="project-frame-inner" id="project-frame" tabindex="0" aria-label="Ongoing project card deck">
                 <div class="project-deck" id="project-deck" aria-live="polite"></div>
               </div>
             </div>
@@ -991,7 +1277,7 @@
             </div>
 
             <div class="cta-row is-left">
-              <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_top" aria-label="Discover CFI projects">
+              <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_blank" rel="noopener noreferrer" aria-label="Open the CFI Research projects page">
                 <svg viewBox="0 0 260 108" aria-hidden="true">
                   <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
                   <text class="discover-label" x="34" y="61">DISCOVER</text>
@@ -1037,7 +1323,7 @@
         </div>
 
         <div class="cta-row is-right" data-reveal>
-          <a class="discover-link" href="https://sites.google.com/view/cfi-research/contact" target="_top" aria-label="Join CFI through the Contact page">
+          <a class="discover-link" href="https://sites.google.com/view/cfi-research/contact" target="_blank" rel="noopener noreferrer" aria-label="Open the CFI Contact page">
             <svg viewBox="0 0 260 108" aria-hidden="true">
               <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
               <text class="discover-label" x="34" y="61">JOIN US</text>
@@ -1260,7 +1546,7 @@
         if (!total) return;
 
         const frameWidth = els.frame.getBoundingClientRect().width;
-        const base = Math.max(54, Math.min(104, frameWidth * .135));
+        const base = Math.max(40, Math.min(96, frameWidth * .125));
 
         cards.forEach((card, index) => {
           let relative = (index - state.activeIndex + total) % total;
