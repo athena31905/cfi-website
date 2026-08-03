@@ -1,0 +1,1537 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CFI builds trust and resilience for future digital systems through cybersecurity research, projects, and researcher support.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Home | CFI</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --ink-soft: #4b4b4b;
+      --muted: #8c8c8c;
+      --navy: #071a33;
+      --navy-2: #102d52;
+      --navy-3: #173f70;
+      --blue-pale: #e9f1f8;
+      --warm: #f5f1e9;
+      --line: #dadada;
+      --line-dark: #b4b4b4;
+      --danger: #9f2d2d;
+      --surface: #ffffff;
+      --content: min(1540px, calc(100% - 72px));
+      --ease: cubic-bezier(.22, .61, .36, 1);
+      --shadow: 0 24px 70px rgba(7, 26, 51, .12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      min-width: 320px;
+      scroll-behavior: smooth;
+      background: #fff;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      background: var(--surface);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+    img, object { display: block; max-width: 100%; }
+    button { color: inherit; font: inherit; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 9999;
+      top: 12px;
+      left: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #fff;
+      background: var(--navy);
+      transform: translateY(-160%);
+      transition: transform .2s ease;
+    }
+
+    .skip-link:focus { transform: translateY(0); }
+
+    .page-width {
+      width: var(--content);
+      margin-inline: auto;
+    }
+
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+        opacity 720ms var(--ease) var(--reveal-delay, 0ms),
+        transform 720ms var(--ease) var(--reveal-delay, 0ms);
+    }
+
+    [data-reveal].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      padding: clamp(66px, 6vw, 104px) 0 clamp(96px, 9vw, 148px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.34fr) minmax(300px, .66fr);
+      gap: clamp(50px, 8vw, 136px);
+      align-items: start;
+    }
+
+    .hero-title {
+      max-width: 920px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(52px, 5.55vw, 88px);
+      font-weight: 700;
+      line-height: 1.42;
+      letter-spacing: -.035em;
+    }
+
+    .hero-title span { display: block; }
+
+    .hero-logo-wrap {
+      justify-self: center;
+      width: min(390px, 30vw);
+      margin-top: clamp(0px, 1.4vw, 20px);
+    }
+
+    .hero-logo {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 16px 26px rgba(7, 26, 51, .08));
+    }
+
+    .hero-quote {
+      max-width: 1430px;
+      margin: clamp(64px, 8vw, 118px) auto 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(22px, 2vw, 34px);
+      font-weight: 700;
+      line-height: 1.34;
+      letter-spacing: -.012em;
+      text-align: center;
+    }
+
+    .home-section {
+      position: relative;
+      padding: clamp(72px, 8vw, 126px) 0;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(42px, 4vw, 64px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -.042em;
+    }
+
+    .section-title.is-right { text-align: right; }
+
+    .interest-stage {
+      margin-top: clamp(68px, 7vw, 112px);
+      overflow: hidden;
+    }
+
+    .interest-layout {
+      position: relative;
+      width: min(1404px, 100%);
+      aspect-ratio: 1404 / 650;
+      margin: 0 auto;
+    }
+
+    .interest-card {
+      position: absolute;
+      display: block;
+      margin: 0;
+      overflow: hidden;
+      border: 0;
+      background: #020703;
+      box-shadow: 0 12px 34px rgba(7, 26, 51, .07);
+      transition: transform 380ms var(--ease), box-shadow 380ms ease;
+    }
+
+    .interest-card:hover,
+    .interest-card:focus-within {
+      z-index: 10;
+      transform: translateY(-7px) scale(1.008);
+      box-shadow: 0 24px 58px rgba(7, 26, 51, .15);
+    }
+
+    .interest-card object,
+    .interest-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .interest-card-1 {
+      left: 0;
+      top: 0;
+      width: 27.42165242%;
+      height: 71.07692308%;
+    }
+
+    .interest-card-2 {
+      left: 27.42165242%;
+      top: 34.61538462%;
+      width: 22.50712251%;
+      height: 61.53846154%;
+    }
+
+    .interest-card-3 {
+      left: 49.92877493%;
+      top: 10.76923077%;
+      width: 26.56695157%;
+      height: 73.07692308%;
+    }
+
+    .interest-card-4 {
+      left: 76.49572650%;
+      top: 46%;
+      width: 23.50427350%;
+      height: 54%;
+    }
+
+    .cta-row {
+      display: flex;
+      margin-top: clamp(50px, 5vw, 84px);
+    }
+
+    .cta-row.is-right { justify-content: flex-end; }
+    .cta-row.is-left { justify-content: flex-start; }
+
+    .discover-link {
+      display: block;
+      width: min(208px, 100%);
+      height: 88px;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .discover-link svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .discover-hit-area { fill: transparent; pointer-events: all; }
+
+    .discover-label {
+      fill: #161616;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: .05px;
+    }
+
+    .discover-underline {
+      stroke: #161616;
+      stroke-width: 2;
+      transform-box: fill-box;
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 420ms var(--ease);
+    }
+
+    .discover-ring-base {
+      fill: none;
+      stroke: #aaa;
+      stroke-width: 2;
+    }
+
+    .discover-ring-progress {
+      fill: none;
+      stroke: var(--danger);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-dasharray: 176;
+      stroke-dashoffset: 176;
+      transform: rotate(-90deg);
+      transform-origin: 212px 54px;
+      transition: stroke-dashoffset 560ms var(--ease);
+    }
+
+    .discover-arrow {
+      fill: none;
+      stroke: #161616;
+      stroke-width: 3;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      transition: transform 360ms var(--ease), stroke 240ms ease;
+    }
+
+    .discover-link:hover .discover-ring-progress,
+    .discover-link:focus-visible .discover-ring-progress { stroke-dashoffset: 0; }
+
+    .discover-link:hover .discover-underline,
+    .discover-link:focus-visible .discover-underline { transform: scaleX(1); }
+
+    .discover-link:hover .discover-arrow,
+    .discover-link:focus-visible .discover-arrow {
+      transform: translateX(2px);
+      stroke: var(--danger);
+    }
+
+    .discover-link:focus-visible {
+      border-radius: 8px;
+      outline: 3px solid rgba(47, 111, 237, .2);
+      outline-offset: 4px;
+    }
+
+    .working-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(340px, .72fr);
+      gap: clamp(62px, 9vw, 150px);
+      align-items: center;
+      margin-top: clamp(72px, 7vw, 114px);
+    }
+
+    .project-showcase { min-width: 0; }
+
+    .project-frame {
+      position: relative;
+      aspect-ratio: 760 / 430;
+      padding: clamp(13px, 1.3vw, 21px);
+      border: 1px solid #b9b1a3;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(225,219,208,.9)),
+        #ece7de;
+      box-shadow:
+        0 9px 0 -5px #8d8578,
+        0 22px 44px rgba(48, 42, 32, .13),
+        inset 0 0 0 5px rgba(255,255,255,.5);
+    }
+
+    .project-frame::before {
+      position: absolute;
+      inset: 7px;
+      border: 1px solid rgba(115, 106, 91, .24);
+      box-shadow: inset 0 0 16px rgba(81, 71, 54, .12);
+      content: "";
+      pointer-events: none;
+    }
+
+    .project-frame-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid #d7d0c4;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255,255,255,.96), transparent 46%),
+        linear-gradient(180deg, #fbfaf7 0%, #f1eee8 100%);
+      box-shadow:
+        inset 0 16px 20px rgba(76, 65, 48, .08),
+        inset 0 -12px 18px rgba(76, 65, 48, .07);
+      cursor: grab;
+      touch-action: pan-y;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .project-frame-inner.is-dragging { cursor: grabbing; }
+
+    .project-frame-inner::before,
+    .project-frame-inner::after {
+      position: absolute;
+      z-index: 90;
+      right: 0;
+      left: 0;
+      height: 18px;
+      content: "";
+      pointer-events: none;
+    }
+
+    .project-frame-inner::before {
+      top: 0;
+      background: linear-gradient(to bottom, rgba(96,82,61,.16), transparent);
+    }
+
+    .project-frame-inner::after {
+      bottom: 0;
+      background: linear-gradient(to top, rgba(96,82,61,.12), transparent);
+    }
+
+    .project-deck {
+      position: absolute;
+      inset: 0;
+    }
+
+    .deck-card {
+      --deck-x: 0px;
+      --deck-y: 0px;
+      --deck-scale: 1;
+      --deck-rotate: 0deg;
+      --deck-opacity: 1;
+      position: absolute;
+      z-index: var(--deck-z, 1);
+      top: 50%;
+      left: 50%;
+      display: flex;
+      width: clamp(178px, 19vw, 244px);
+      height: 82%;
+      min-height: 250px;
+      flex-direction: column;
+      padding: clamp(18px, 1.6vw, 25px);
+      overflow: hidden;
+      border: 1px solid rgba(7, 26, 51, .18);
+      border-radius: 17px;
+      color: var(--navy);
+      background:
+        radial-gradient(circle at 88% 12%, rgba(255,255,255,.8), transparent 30%),
+        linear-gradient(155deg, #f8f6f1 0%, var(--blue-pale) 100%);
+      box-shadow: 0 17px 38px rgba(7, 26, 51, .14);
+      opacity: var(--deck-opacity);
+      transform:
+        translate(-50%, -50%)
+        translate(var(--deck-x), var(--deck-y))
+        rotate(var(--deck-rotate))
+        scale(var(--deck-scale));
+      transform-origin: center bottom;
+      transition:
+        transform 620ms var(--ease),
+        opacity 440ms ease,
+        background-color 320ms ease,
+        box-shadow 420ms ease,
+        color 320ms ease,
+        filter 420ms ease;
+      will-change: transform, opacity;
+    }
+
+    .deck-card::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: #2f6fed;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 420ms var(--ease);
+    }
+
+    .deck-card.is-active {
+      color: #fff;
+      background:
+        radial-gradient(circle at 88% 10%, rgba(92, 152, 240, .25), transparent 32%),
+        linear-gradient(155deg, var(--navy-3) 0%, var(--navy) 74%);
+      box-shadow: 0 24px 58px rgba(7, 26, 51, .28);
+    }
+
+    .deck-card.is-active::after { transform: scaleX(1); }
+
+    .deck-card:not(.is-active) { filter: saturate(.82); }
+    .deck-card:not(.is-active):hover { filter: saturate(1); }
+
+    .deck-card-number {
+      color: #60758d;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      transition: color 320ms ease;
+    }
+
+    .deck-card.is-active .deck-card-number { color: rgba(255,255,255,.58); }
+
+    .deck-card-agency {
+      display: inline-flex;
+      max-width: 100%;
+      align-self: flex-start;
+      margin-top: clamp(15px, 1.5vw, 22px);
+      padding: 5px 9px;
+      overflow: hidden;
+      border: 1px solid rgba(53, 84, 118, .25);
+      border-radius: 999px;
+      color: #3f5a77;
+      font-size: 10px;
+      font-weight: 750;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transition: color 320ms ease, border-color 320ms ease, background 320ms ease;
+    }
+
+    .deck-card.is-active .deck-card-agency {
+      color: #fff;
+      border-color: rgba(255,255,255,.32);
+      background: rgba(255,255,255,.07);
+    }
+
+    .deck-card-title {
+      margin: clamp(15px, 1.4vw, 22px) 0 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(15px, 1.35vw, 21px);
+      font-weight: 760;
+      line-height: 1.2;
+      letter-spacing: -.035em;
+      overflow-wrap: anywhere;
+    }
+
+    .deck-card-footer {
+      display: grid;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 16px;
+      color: #60758d;
+      font-size: 10px;
+      line-height: 1.35;
+      transition: color 320ms ease;
+    }
+
+    .deck-card.is-active .deck-card-footer { color: rgba(255,255,255,.7); }
+
+    .deck-card-keywords,
+    .deck-card-period {
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+
+    .deck-card-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(18, 63, 115, .17);
+      color: #123f73;
+      font-size: 9.5px;
+      font-weight: 850;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 240ms ease, border-color 240ms ease;
+    }
+
+    .deck-card-link::after {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+      content: "→";
+      transition: transform 240ms var(--ease);
+    }
+
+    .deck-card-link:hover::after,
+    .deck-card-link:focus-visible::after { transform: translateX(3px); }
+
+    .deck-card.is-active .deck-card-link {
+      color: #fff;
+      border-color: rgba(255,255,255,.23);
+    }
+
+    .deck-card-link:focus-visible,
+    .deck-control:focus-visible {
+      outline: 3px solid rgba(47, 111, 237, .26);
+      outline-offset: 3px;
+    }
+
+    .deck-empty {
+      position: absolute;
+      inset: 20px;
+      display: grid;
+      place-items: center;
+      padding: 30px;
+      border: 1px dashed #c9c0b1;
+      color: #746e66;
+      background: rgba(255,255,255,.55);
+      text-align: center;
+    }
+
+    .deck-toolbar {
+      display: flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 13px 4px 0;
+      color: #747474;
+      font-size: 12px;
+    }
+
+    .deck-instruction { margin: 0; }
+
+    .deck-navigation {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .deck-index {
+      min-width: 54px;
+      color: #5f5f5f;
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+    }
+
+    .deck-index strong { color: var(--navy); }
+
+    .deck-control {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      transition: transform 200ms var(--ease), border-color 200ms ease, background 200ms ease;
+    }
+
+    .deck-control:hover {
+      border-color: #929292;
+      background: #f7f7f7;
+      transform: translateY(-1px);
+    }
+
+    .working-copy {
+      justify-self: end;
+      max-width: 520px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 3.35vw, 56px);
+      font-weight: 700;
+      line-height: 1.42;
+      letter-spacing: -.02em;
+      text-align: right;
+    }
+
+    .working-copy span { display: block; }
+
+    .provide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: clamp(74px, 7vw, 116px);
+      border-top: 1px solid var(--line-dark);
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .benefit {
+      position: relative;
+      min-height: clamp(235px, 19vw, 310px);
+      padding: clamp(32px, 3.3vw, 54px);
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background: #fff;
+      transition: color 340ms ease, background 340ms ease, transform 340ms var(--ease), box-shadow 340ms ease;
+    }
+
+    .benefit:last-child { border-right: 0; }
+
+    .benefit::before {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: #2f6fed;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 430ms var(--ease);
+    }
+
+    .benefit:hover,
+    .benefit:focus-within {
+      z-index: 2;
+      color: #fff;
+      background: var(--navy);
+      box-shadow: 0 20px 54px rgba(7, 26, 51, .18);
+      transform: translateY(-5px);
+    }
+
+    .benefit:hover::before,
+    .benefit:focus-within::before { transform: scaleX(1); }
+
+    .benefit-number {
+      font-family: Georgia, "Times New Roman", serif;
+      color: #aaa;
+      font-size: clamp(30px, 2.7vw, 42px);
+      font-style: italic;
+      line-height: 1;
+      transition: color 340ms ease;
+    }
+
+    .benefit:hover .benefit-number,
+    .benefit:focus-within .benefit-number { color: rgba(255,255,255,.48); }
+
+    .benefit-title {
+      max-width: 360px;
+      margin: clamp(42px, 5vw, 82px) 0 0;
+      font-size: clamp(28px, 2.45vw, 42px);
+      font-weight: 700;
+      line-height: 1.14;
+      letter-spacing: -.035em;
+    }
+
+    .benefit-arrow {
+      position: absolute;
+      right: clamp(26px, 2.5vw, 42px);
+      bottom: clamp(25px, 2.5vw, 40px);
+      width: 30px;
+      height: 20px;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 300ms ease, transform 360ms var(--ease);
+    }
+
+    .benefit:hover .benefit-arrow,
+    .benefit:focus-within .benefit-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .benefit-arrow::before,
+    .benefit-arrow::after {
+      position: absolute;
+      content: "";
+    }
+
+    .benefit-arrow::before {
+      top: 9px;
+      right: 0;
+      left: 0;
+      height: 2px;
+      background: #fff;
+    }
+
+    .benefit-arrow::after {
+      top: 4px;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      border-top: 2px solid #fff;
+      border-right: 2px solid #fff;
+      transform: rotate(45deg);
+    }
+
+    .news-section {
+      padding: clamp(78px, 7vw, 118px) 0 clamp(120px, 10vw, 180px);
+    }
+
+    .news-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(52px, 5vw, 78px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.035em;
+      text-align: center;
+    }
+
+    .news-rule {
+      width: 142px;
+      height: 2px;
+      margin: 30px auto 0;
+      background: #222;
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    @media (max-width: 1100px) {
+      :root { --content: min(100% - 48px, 1540px); }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(250px, .52fr);
+        gap: 44px;
+      }
+
+      .working-grid {
+        grid-template-columns: 1fr;
+        gap: 62px;
+      }
+
+      .working-copy {
+        justify-self: end;
+        max-width: 720px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root { --content: min(100% - 32px, 1540px); }
+
+      .hero { padding-top: 46px; }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .hero-title {
+        font-size: clamp(43px, 12.5vw, 66px);
+        line-height: 1.3;
+      }
+
+      .hero-logo-wrap {
+        order: -1;
+        justify-self: end;
+        width: min(210px, 52vw);
+        margin: 0 4vw -12px 0;
+      }
+
+      .hero-quote {
+        margin-top: 58px;
+        font-size: clamp(19px, 5.6vw, 27px);
+      }
+
+      .section-title {
+        font-size: clamp(38px, 10vw, 54px);
+      }
+
+      .interest-stage { overflow: visible; }
+
+      .interest-layout {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        aspect-ratio: auto;
+      }
+
+      .interest-card {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        transform: none;
+      }
+
+      .interest-card:hover,
+      .interest-card:focus-within { transform: translateY(-5px); }
+
+      .interest-card-1 { aspect-ratio: 385 / 462; }
+      .interest-card-2 { aspect-ratio: 316 / 400; margin-top: 42px; }
+      .interest-card-3 { aspect-ratio: 373 / 475; margin-top: -18px; }
+      .interest-card-4 { aspect-ratio: 330 / 351; margin-top: 38px; }
+
+      .discover-link {
+        width: 176px;
+        height: 75px;
+      }
+
+      .project-frame { aspect-ratio: 1.18 / 1; }
+
+      .deck-card {
+        width: min(56vw, 230px);
+        height: 79%;
+      }
+
+      .deck-instruction { max-width: 190px; }
+
+      .working-copy {
+        font-size: clamp(32px, 9vw, 47px);
+      }
+
+      .provide-grid { grid-template-columns: 1fr; }
+
+      .benefit {
+        min-height: 210px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .benefit:last-child { border-bottom: 0; }
+      .benefit-title { margin-top: 32px; }
+    }
+
+    @media (max-width: 500px) {
+      .interest-layout { grid-template-columns: 1fr; }
+      .interest-card-2,
+      .interest-card-3,
+      .interest-card-4 { margin-top: 0; }
+
+      .cta-row.is-right,
+      .cta-row.is-left { justify-content: center; }
+
+      .section-title.is-right { text-align: left; }
+
+      .project-frame { aspect-ratio: .92 / 1; }
+
+      .deck-card {
+        width: min(67vw, 224px);
+        height: 78%;
+        padding: 17px;
+      }
+
+      .deck-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .deck-navigation { align-self: flex-end; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+
+      [data-reveal] { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="page-width">
+        <div class="hero-grid">
+          <h1 class="hero-title" id="hero-title" data-reveal>
+            <span>Building</span>
+            <span>Trust and Resilience</span>
+            <span>For</span>
+            <span>Future Digital Systems.</span>
+          </h1>
+
+          <div class="hero-logo-wrap" data-reveal style="--reveal-delay: 130ms;">
+            <img class="hero-logo" src="CFI_logo.png" alt="CFI logo">
+          </div>
+        </div>
+
+        <p class="hero-quote" data-reveal style="--reveal-delay: 240ms;">“CFI is a research group that investigates cybersecurity issues related to digital evidence, next-generation networks, quantum computing, and emerging space systems.”</p>
+      </div>
+    </section>
+
+    <section class="home-section interest-section" aria-labelledby="interest-title">
+      <div class="page-width">
+        <h2 class="section-title is-right" id="interest-title" data-reveal>We are interested in...</h2>
+
+        <div class="interest-stage" data-reveal style="--reveal-delay: 90ms;">
+          <div class="interest-layout" aria-label="CFI research interests">
+            <div class="interest-card interest-card-1">
+              <object data="assets/home/interests/digital-forensics.svg" type="image/svg+xml" aria-label="Digital Forensics interactive research image">
+                <img src="assets/home/interests/digital-forensics-fallback.jpg" alt="Digital Forensics">
+              </object>
+            </div>
+            <div class="interest-card interest-card-2">
+              <object data="assets/home/interests/post-quantum-security.svg" type="image/svg+xml" aria-label="Post-Quantum Security interactive research image">
+                <img src="assets/home/interests/post-quantum-security-fallback.jpg" alt="Post-Quantum Security">
+              </object>
+            </div>
+            <div class="interest-card interest-card-3">
+              <object data="assets/home/interests/space-security.svg" type="image/svg+xml" aria-label="Space Security interactive research image">
+                <img src="assets/home/interests/space-security-fallback.jpg" alt="Space Security">
+              </object>
+            </div>
+            <div class="interest-card interest-card-4">
+              <object data="assets/home/interests/5g6g-security.svg" type="image/svg+xml" aria-label="5G and 6G Security interactive research image">
+                <img src="assets/home/interests/5g6g-security-fallback.jpg" alt="5G and 6G Security">
+              </object>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-row is-right" data-reveal>
+          <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_top" aria-label="Discover CFI research">
+            <svg viewBox="0 0 260 108" aria-hidden="true">
+              <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
+              <text class="discover-label" x="34" y="61">DISCOVER</text>
+              <line class="discover-underline" x1="34" y1="70" x2="132" y2="70"></line>
+              <circle class="discover-ring-base" cx="212" cy="54" r="28"></circle>
+              <circle class="discover-ring-progress" cx="212" cy="54" r="28"></circle>
+              <path class="discover-arrow" d="M209 44.5 L216.5 54 L209 63.5"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section working-section" aria-labelledby="working-title">
+      <div class="page-width">
+        <h2 class="section-title" id="working-title" data-reveal>We are working on...</h2>
+
+        <div class="working-grid">
+          <div class="project-showcase" data-reveal style="--reveal-delay: 80ms;">
+            <div class="project-frame">
+              <div class="project-frame-inner" id="project-frame" aria-label="Ongoing project card deck">
+                <div class="project-deck" id="project-deck" aria-live="polite"></div>
+              </div>
+            </div>
+
+            <div class="deck-toolbar">
+              <p class="deck-instruction" id="deck-instruction">Drag the deck, click a rear card, or use the arrow keys.</p>
+              <div class="deck-navigation" aria-label="Project deck navigation">
+                <button class="deck-control" id="deck-previous" type="button" aria-label="Previous project">←</button>
+                <span class="deck-index"><strong id="deck-current">0</strong> / <span id="deck-total">0</span></span>
+                <button class="deck-control" id="deck-next" type="button" aria-label="Next project">→</button>
+              </div>
+            </div>
+
+            <div class="cta-row is-left">
+              <a class="discover-link" href="https://sites.google.com/view/cfi-research/research" target="_top" aria-label="Discover CFI projects">
+                <svg viewBox="0 0 260 108" aria-hidden="true">
+                  <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
+                  <text class="discover-label" x="34" y="61">DISCOVER</text>
+                  <line class="discover-underline" x1="34" y1="70" x2="132" y2="70"></line>
+                  <circle class="discover-ring-base" cx="212" cy="54" r="28"></circle>
+                  <circle class="discover-ring-progress" cx="212" cy="54" r="28"></circle>
+                  <path class="discover-arrow" d="M209 44.5 L216.5 54 L209 63.5"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <p class="working-copy" data-reveal style="--reveal-delay: 180ms;">
+            <span>CFI is carrying out</span>
+            <span>various projects</span>
+            <span>related to</span>
+            <span>its research areas.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section provide-section" aria-labelledby="provide-title">
+      <div class="page-width">
+        <h2 class="section-title is-right" id="provide-title" data-reveal>We provide...</h2>
+
+        <div class="provide-grid" data-reveal style="--reveal-delay: 100ms;">
+          <article class="benefit" tabindex="0">
+            <span class="benefit-number">01</span>
+            <h3 class="benefit-title">Tuition Support</h3>
+            <span class="benefit-arrow" aria-hidden="true"></span>
+          </article>
+          <article class="benefit" tabindex="0">
+            <span class="benefit-number">02</span>
+            <h3 class="benefit-title">Research Funding</h3>
+            <span class="benefit-arrow" aria-hidden="true"></span>
+          </article>
+          <article class="benefit" tabindex="0">
+            <span class="benefit-number">03</span>
+            <h3 class="benefit-title">Professional Opportunities</h3>
+            <span class="benefit-arrow" aria-hidden="true"></span>
+          </article>
+        </div>
+
+        <div class="cta-row is-right" data-reveal>
+          <a class="discover-link" href="https://sites.google.com/view/cfi-research/contact" target="_top" aria-label="Join CFI through the Contact page">
+            <svg viewBox="0 0 260 108" aria-hidden="true">
+              <rect class="discover-hit-area" x="18" y="12" width="228" height="82" rx="2"></rect>
+              <text class="discover-label" x="34" y="61">JOIN US</text>
+              <line class="discover-underline" x1="34" y1="70" x2="105" y2="70"></line>
+              <circle class="discover-ring-base" cx="212" cy="54" r="28"></circle>
+              <circle class="discover-ring-progress" cx="212" cy="54" r="28"></circle>
+              <path class="discover-arrow" d="M209 44.5 L216.5 54 L209 63.5"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="news-section" aria-labelledby="news-title">
+      <div class="page-width">
+        <h2 class="news-title" id="news-title" data-reveal>News</h2>
+        <div class="news-rule" aria-hidden="true" data-reveal style="--reveal-delay: 90ms;"></div>
+        <div class="visually-hidden" id="news-future-slot">News content will be added in a future update.</div>
+      </div>
+    </section>
+  </main>
+
+  <script id="cfi-home-config" type="application/json">
+  {
+    "publicApiUrl": "https://script.google.com/macros/s/AKfycbwVihOoUAeFWzFdSqGu19LsFmZ6GP3TzccWNS1vWt8cdHIaE9pd82DgiRlyxLZrGKaWEw/exec",
+    "refreshIntervalMs": 60000
+  }
+  </script>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const CONFIG = readConfig();
+      const params = new URLSearchParams(window.location.search);
+      const state = {
+        projects: [],
+        activeIndex: 0,
+        loading: false,
+        pointerId: null,
+        dragStartX: 0,
+        didDrag: false
+      };
+
+      const els = {
+        frame: document.getElementById("project-frame"),
+        deck: document.getElementById("project-deck"),
+        previous: document.getElementById("deck-previous"),
+        next: document.getElementById("deck-next"),
+        current: document.getElementById("deck-current"),
+        total: document.getElementById("deck-total"),
+        instruction: document.getElementById("deck-instruction")
+      };
+
+      init();
+
+      function init() {
+        setupRevealObserver();
+        bindDeckEvents();
+        loadProjects();
+
+        if (Number(CONFIG.refreshIntervalMs) > 0) {
+          window.setInterval(() => {
+            if (!document.hidden && !state.loading && isConfigured(CONFIG.publicApiUrl)) {
+              loadProjects({ silent: true });
+            }
+          }, Math.max(15000, Number(CONFIG.refreshIntervalMs)));
+        }
+      }
+
+      function readConfig() {
+        try {
+          return JSON.parse(document.getElementById("cfi-home-config").textContent.trim());
+        } catch (error) {
+          console.error("Invalid CFI Home configuration", error);
+          return { publicApiUrl: "", refreshIntervalMs: 0 };
+        }
+      }
+
+      async function loadProjects(options = {}) {
+        const silent = Boolean(options.silent);
+        state.loading = true;
+
+        try {
+          let projects;
+          if (params.get("preview") === "1") {
+            projects = previewProjects();
+          } else if (!isConfigured(CONFIG.publicApiUrl)) {
+            renderEmpty("Paste the Public Apps Script URL into the cfi-home-config block in home.html.");
+            return;
+          } else {
+            let payload;
+            try {
+              const response = await fetch(withQuery(CONFIG.publicApiUrl, { mode: "projects", _: Date.now() }), {
+                method: "GET",
+                redirect: "follow",
+                cache: "no-store",
+                credentials: "omit"
+              });
+              if (!response.ok) throw new Error(`HTTP ${response.status}`);
+              payload = await response.json();
+            } catch (fetchError) {
+              payload = await loadJsonp(CONFIG.publicApiUrl);
+            }
+
+            if (!payload || payload.ok !== true || !Array.isArray(payload.projects)) {
+              throw new Error(payload?.error || "The project endpoint returned an invalid response.");
+            }
+            projects = payload.projects;
+          }
+
+          const normalized = projects
+            .map(normalizeProject)
+            .filter((project) => project.status === "ongoing" && project.is_visible)
+            .sort((a, b) => a.sort_order - b.sort_order || projectTitle(a).localeCompare(projectTitle(b)));
+
+          const activeId = state.projects[state.activeIndex]?.project_id;
+          state.projects = normalized;
+          state.activeIndex = Math.max(0, normalized.findIndex((project) => project.project_id === activeId));
+          if (state.activeIndex < 0) state.activeIndex = 0;
+          renderDeck();
+          if (!silent) els.instruction.textContent = normalized.length
+            ? "Drag the deck, click a rear card, or use the arrow keys."
+            : "No visible ongoing projects are available.";
+        } catch (error) {
+          console.error(error);
+          renderEmpty("Ongoing projects could not be loaded. Check the Public Apps Script deployment.");
+        } finally {
+          state.loading = false;
+        }
+      }
+
+      function normalizeProject(project) {
+        const keywordSource = Array.isArray(project.keywords)
+          ? project.keywords
+          : String(project.keywords || "").split(/[,;\n]/);
+        return {
+          ...project,
+          project_id: String(project.project_id || project.id || ""),
+          status: String(project.status || "ongoing").toLowerCase() === "past" ? "past" : "ongoing",
+          sort_order: Number.isFinite(Number(project.sort_order)) ? Number(project.sort_order) : 9999,
+          is_visible: project.is_visible !== false && String(project.is_visible).toLowerCase() !== "false",
+          keywords: [...new Set(keywordSource.map((value) => String(value).trim()).filter(Boolean))]
+        };
+      }
+
+      function renderDeck() {
+        els.deck.replaceChildren();
+        els.total.textContent = String(state.projects.length);
+
+        if (!state.projects.length) {
+          els.current.textContent = "0";
+          renderEmpty("No visible ongoing projects are available.");
+          return;
+        }
+
+        state.projects.forEach((project, index) => {
+          const card = createProjectCard(project, index);
+          els.deck.appendChild(card);
+        });
+
+        updateDeckPositions();
+      }
+
+      function renderEmpty(message) {
+        state.projects = [];
+        state.activeIndex = 0;
+        els.deck.replaceChildren();
+        els.current.textContent = "0";
+        els.total.textContent = "0";
+        const empty = document.createElement("div");
+        empty.className = "deck-empty";
+        empty.textContent = message;
+        els.deck.appendChild(empty);
+        els.instruction.textContent = "Project data connection required.";
+      }
+
+      function createProjectCard(project, index) {
+        const card = document.createElement("article");
+        card.className = "deck-card";
+        card.dataset.index = String(index);
+        card.tabIndex = -1;
+
+        const title = projectTitle(project) || "Untitled project";
+        const agency = project.agency_en || project.agency_ko || "Funding agency";
+        const period = formatPeriod(project.project_start, project.project_end);
+        const keywords = project.keywords.slice(0, 2).join(" · ");
+        const detail = safeHttpUrl(project.detail_url);
+
+        card.innerHTML = `
+          <span class="deck-card-number">PROJECT ${String(index + 1).padStart(2, "0")}</span>
+          <span class="deck-card-agency">${escapeHtml(agency)}</span>
+          <h3 class="deck-card-title">${escapeHtml(title)}</h3>
+          <footer class="deck-card-footer">
+            ${keywords ? `<span class="deck-card-keywords">${escapeHtml(keywords)}</span>` : ""}
+            ${period ? `<span class="deck-card-period">${escapeHtml(period)}</span>` : ""}
+            ${detail ? `<a class="deck-card-link" href="${escapeAttribute(detail)}" target="_blank" rel="noopener noreferrer">View details</a>` : ""}
+          </footer>
+        `;
+
+        card.addEventListener("click", (event) => {
+          if (state.didDrag) {
+            event.preventDefault();
+            return;
+          }
+          if (event.target.closest("a")) return;
+          const selected = Number(card.dataset.index);
+          if (selected !== state.activeIndex) {
+            state.activeIndex = selected;
+            updateDeckPositions();
+          }
+        });
+
+        return card;
+      }
+
+      function updateDeckPositions() {
+        const cards = [...els.deck.querySelectorAll(".deck-card")];
+        const total = cards.length;
+        if (!total) return;
+
+        const frameWidth = els.frame.getBoundingClientRect().width;
+        const base = Math.max(54, Math.min(104, frameWidth * .135));
+
+        cards.forEach((card, index) => {
+          let relative = (index - state.activeIndex + total) % total;
+          if (relative > total / 2) relative -= total;
+
+          let x = 0;
+          let y = 0;
+          let scale = 1;
+          let rotate = 0;
+          let opacity = 1;
+          let z = 50;
+          let visible = true;
+
+          if (relative === 1) {
+            x = base;
+            y = -2;
+            scale = .92;
+            rotate = 1.8;
+            z = 40;
+            opacity = .92;
+          } else if (relative === -1) {
+            x = -base;
+            y = -2;
+            scale = .92;
+            rotate = -1.8;
+            z = 40;
+            opacity = .92;
+          } else if (relative === 2) {
+            x = base * 1.78;
+            y = 3;
+            scale = .82;
+            rotate = 3.2;
+            z = 30;
+            opacity = .74;
+          } else if (relative === -2) {
+            x = -base * 1.78;
+            y = 3;
+            scale = .82;
+            rotate = -3.2;
+            z = 30;
+            opacity = .74;
+          } else if (relative !== 0) {
+            const direction = relative > 0 ? 1 : -1;
+            x = direction * base * 2.2;
+            y = 8;
+            scale = .72;
+            rotate = direction * 4.5;
+            z = 10;
+            opacity = 0;
+            visible = false;
+          }
+
+          card.style.setProperty("--deck-x", `${x}px`);
+          card.style.setProperty("--deck-y", `${y}px`);
+          card.style.setProperty("--deck-scale", String(scale));
+          card.style.setProperty("--deck-rotate", `${rotate}deg`);
+          card.style.setProperty("--deck-opacity", String(opacity));
+          card.style.setProperty("--deck-z", String(z));
+          card.classList.toggle("is-active", relative === 0);
+          card.setAttribute("aria-hidden", String(!visible));
+          card.style.pointerEvents = visible ? "auto" : "none";
+          card.tabIndex = relative === 0 ? 0 : -1;
+
+          card.querySelectorAll("a").forEach((link) => {
+            link.tabIndex = relative === 0 ? 0 : -1;
+          });
+        });
+
+        els.current.textContent = String(state.activeIndex + 1);
+      }
+
+      function moveDeck(direction) {
+        const total = state.projects.length;
+        if (total < 2) return;
+        state.activeIndex = (state.activeIndex + direction + total) % total;
+        updateDeckPositions();
+      }
+
+      function bindDeckEvents() {
+        els.previous.addEventListener("click", () => moveDeck(-1));
+        els.next.addEventListener("click", () => moveDeck(1));
+        window.addEventListener("resize", updateDeckPositions);
+
+        els.frame.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            moveDeck(-1);
+          } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            moveDeck(1);
+          }
+        });
+
+        els.frame.addEventListener("pointerdown", (event) => {
+          if (event.target.closest("a, button")) return;
+          if (event.pointerType === "mouse" && event.button !== 0) return;
+          state.pointerId = event.pointerId;
+          state.dragStartX = event.clientX;
+          state.didDrag = false;
+          els.frame.classList.add("is-dragging");
+          els.frame.setPointerCapture(event.pointerId);
+        });
+
+        els.frame.addEventListener("pointermove", (event) => {
+          if (state.pointerId !== event.pointerId) return;
+          if (Math.abs(event.clientX - state.dragStartX) > 6) state.didDrag = true;
+        });
+
+        const finish = (event) => {
+          if (state.pointerId !== event.pointerId) return;
+          const delta = event.clientX - state.dragStartX;
+          if (els.frame.hasPointerCapture(event.pointerId)) els.frame.releasePointerCapture(event.pointerId);
+          els.frame.classList.remove("is-dragging");
+          state.pointerId = null;
+          if (Math.abs(delta) >= 44) moveDeck(delta < 0 ? 1 : -1);
+          window.setTimeout(() => { state.didDrag = false; }, 0);
+        };
+
+        els.frame.addEventListener("pointerup", finish);
+        els.frame.addEventListener("pointercancel", finish);
+      }
+
+      function loadJsonp(baseUrl) {
+        return new Promise((resolve, reject) => {
+          const callbackName = `__cfiHomeProjects_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+          const script = document.createElement("script");
+          const timeout = window.setTimeout(() => cleanup(new Error("JSONP request timed out.")), 15000);
+
+          function cleanup(error, value) {
+            window.clearTimeout(timeout);
+            delete window[callbackName];
+            script.remove();
+            error ? reject(error) : resolve(value);
+          }
+
+          window[callbackName] = (payload) => cleanup(null, payload);
+          script.onerror = () => cleanup(new Error("JSONP request failed."));
+          script.src = withQuery(baseUrl, { mode: "projects", callback: callbackName, _: Date.now() });
+          document.head.appendChild(script);
+        });
+      }
+
+      function projectTitle(project) {
+        return String(project.title_en || project.title_ko || "").trim();
+      }
+
+      function formatPeriod(start, end) {
+        const s = String(start || "").trim();
+        const e = String(end || "").trim();
+        if (s && e) return `${s} – ${e}`;
+        if (s) return `${s} – Present`;
+        return e;
+      }
+
+      function withQuery(baseUrl, values) {
+        const url = new URL(baseUrl, window.location.href);
+        Object.entries(values).forEach(([key, value]) => url.searchParams.set(key, String(value)));
+        return url.href;
+      }
+
+      function safeHttpUrl(value) {
+        if (!value) return "";
+        try {
+          const url = new URL(String(value), window.location.href);
+          return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+        } catch (_) {
+          return "";
+        }
+      }
+
+      function isConfigured(value) {
+        return Boolean(value && !/PASTE_|YOUR_|EXAMPLE/i.test(String(value)));
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? "" : value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function escapeAttribute(value) {
+        return escapeHtml(value).replaceAll("`", "&#096;");
+      }
+
+      function setupRevealObserver() {
+        const targets = document.querySelectorAll("[data-reveal]");
+        if (!("IntersectionObserver" in window)) {
+          targets.forEach((target) => target.classList.add("is-visible"));
+          return;
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: .08, rootMargin: "0px 0px -4%" });
+
+        targets.forEach((target) => observer.observe(target));
+      }
+
+      function previewProjects() {
+        return [
+          {
+            project_id: "preview-01",
+            status: "ongoing",
+            sort_order: 1,
+            is_visible: true,
+            agency_en: "Ministry of Education",
+            title_en: "Research on Advanced Defense Protection Technologies",
+            keywords: ["Defense Technology", "Security"],
+            project_start: "2024.03",
+            project_end: "2027.02",
+            detail_url: "#"
+          },
+          {
+            project_id: "preview-02",
+            status: "ongoing",
+            sort_order: 2,
+            is_visible: true,
+            agency_en: "ETRI",
+            title_en: "CTC Detection in 5G Environments",
+            keywords: ["5G", "Covert Channel"],
+            project_start: "2024.06",
+            project_end: "2026.12",
+            detail_url: "#"
+          },
+          {
+            project_id: "preview-03",
+            status: "ongoing",
+            sort_order: 3,
+            is_visible: true,
+            agency_en: "MSIT · IITP",
+            title_en: "Core Security Technologies Using Multimodal Attributes of Wireless Communication Channels",
+            keywords: ["Wireless Security"],
+            project_start: "2025.01",
+            project_end: "2028.12",
+            detail_url: "#"
+          },
+          {
+            project_id: "preview-04",
+            status: "ongoing",
+            sort_order: 4,
+            is_visible: true,
+            agency_en: "MSIT · IITP",
+            title_en: "Emerging Technologies for Enhanced Data Privacy in Edge Clouds",
+            keywords: ["Edge Cloud", "Privacy"],
+            project_start: "2025.03",
+            project_end: "2028.02",
+            detail_url: "#"
+          },
+          {
+            project_id: "preview-05",
+            status: "ongoing",
+            sort_order: 5,
+            is_visible: true,
+            agency_en: "DAPA",
+            title_en: "High-Assurance AI Laboratory for Collaborative Combat Aircraft",
+            keywords: ["High-Assurance AI"],
+            project_start: "2025.07",
+            project_end: "2029.06",
+            detail_url: "#"
+          }
+        ];
+      }
+    })();
+  </script>
+</body>
+</html>
